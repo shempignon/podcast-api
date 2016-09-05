@@ -7,7 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    feeds_dir: "%%kernel.root_dir%/../web/feeds/"
+    feeds_dir: "%kernel.root_dir%/../web/feeds/"
 
 framework:
     #esi:             ~

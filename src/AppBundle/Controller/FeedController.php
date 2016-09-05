@@ -48,6 +48,26 @@ class FeedController extends Controller
      *
      * @throws BadRequestHttpException
      *
+     * @Route("/create", name="feeds_create", defaults={"_format": "html"})
+     * @Method("GET")
+     */
+    public function createAction(Request $request)
+    {
+        $feed = new Feed();
+        $form = $this->createForm(FeedType::class, $feed);
+
+        return $this->render('default/form.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws BadRequestHttpException
+     *
      * @Route("", name="feeds_store")
      * @Method("POST")
      */
@@ -70,7 +90,7 @@ class FeedController extends Controller
             return new Response('', 201, [
                 'Location' => $router->generate(
                     'feeds_show',
-                    ['id' => $feed->getId()]
+                    ['slug' => $feed->getSlug()]
                 ),
             ]);
         }
@@ -109,7 +129,7 @@ class FeedController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($feed);
         $em->flush();
-        
+
         return $this->json(null, 204);
     }
 }
