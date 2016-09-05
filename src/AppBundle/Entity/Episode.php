@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -21,9 +22,11 @@ class Episode
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      *
      * @Assert\NotBlank()
+     *
+     * @Groups({"feedGroup"})
      *
      * @var string
      */

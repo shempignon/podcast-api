@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Serializer;
  * Class FeedController
  * @package AppBundle\Controller
  *
- * @Route("/feeds", defaults={"_format": "json"})
+ * @Route("/feeds", defaults={"_format": "html"})
  */
 class FeedController extends Controller
 {
@@ -38,7 +38,7 @@ class FeedController extends Controller
         $feeds = $em->getRepository(Feed::class)
             ->findAll();
 
-        return $this->json($feeds, 200, [], ['group' => ['feed']]);
+        return $this->json($feeds);
     }
 
     /**
@@ -111,7 +111,7 @@ class FeedController extends Controller
      */
     public function showAction(Feed $feed, Request $request)
     {
-        return $this->json($feed, 200, [], ['group' => ['feed']]);
+        return $this->json($feed, 200, [], ['group' => ['feedGroup']]);
     }
 
     /**
@@ -131,5 +131,23 @@ class FeedController extends Controller
         $em->flush();
 
         return $this->json(null, 204);
+    }
+
+    /**
+     * @param Feed $feed
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return JsonResponse
+     *
+     * @Route("/{slug}/refresh", name="feeds_refresh", defaults={"_format": "html"})
+     * @Method("GET")
+     */
+    public function refresh(Feed $feed)
+    {
+        $refresher = $this->get('app.podcast.refresher');
+        $refresher->setFeed($feed);
+
+        return new JsonResponse(count($refresher->execute()));
     }
 }

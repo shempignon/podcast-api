@@ -4,6 +4,15 @@ parameters:
 #    parameter_name: value
 
 services:
+    css.converter:
+        class: Symfony\Component\CssSelector\CssSelectorConverter
+        arguments:
+            - false
+    app.podcast.refresher:
+        class: AppBundle\Service\RefreshPodcast
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@css.converter"
     app.form.feed:
         class: AppBundle\Form\FeedType
         arguments:

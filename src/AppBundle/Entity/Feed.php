@@ -25,7 +25,7 @@ class Feed
      *
      * @Assert\NotBlank()
      *
-     * @Groups({"feed"})
+     * @Groups({"feedGroup"})
      *
      * @var string
      */
@@ -48,8 +48,6 @@ class Feed
      * )
      * @Assert\NotBlank()
      *
-     * @Groups({"feed"})
-     *
      * @var string
      */
     private $url;
@@ -61,6 +59,9 @@ class Feed
      */
     private $episodes;
 
+    /**
+     * Feed constructor.
+     */
     public function __construct()
     {
         $this->episodes = new ArrayCollection();
@@ -99,7 +100,7 @@ class Feed
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getEpisodes()
     {
@@ -136,5 +137,21 @@ class Feed
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @param Episode $newEpisode
+     *
+     * @return bool
+     */
+    public function hasEpisode(Episode $newEpisode)
+    {
+        foreach ($this->episodes as $episode) {
+            if ($episode->getName() === $newEpisode->getName()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
