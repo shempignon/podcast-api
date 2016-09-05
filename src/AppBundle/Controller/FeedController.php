@@ -63,6 +63,8 @@ class FeedController extends Controller
             $em->persist($feed);
             $em->flush();
 
+            @mkdir($this->getParameter('feeds_dir') . $feed->getSlug());
+
             $router = $this->get('router');
 
             return new Response('', 201, [
@@ -85,9 +87,29 @@ class FeedController extends Controller
      * @throws NotFoundHttpException
      *
      * @Route("/{slug}", name="feeds_show")
+     * @Method("GET")
      */
     public function showAction(Feed $feed, Request $request)
     {
         return $this->json($feed, 200, [], ['group' => ['feed']]);
+    }
+
+    /**
+     * @param Feed $feed
+     *
+     * @return JsonResponse
+     *
+     * @throws NotFoundHttpException
+     *
+     * @Route("/{slug}", name="feeds_delete")
+     * @Method("DELETE")
+     */
+    public function delete(Feed $feed)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($feed);
+        $em->flush();
+        
+        return $this->json(null, 204);
     }
 }
