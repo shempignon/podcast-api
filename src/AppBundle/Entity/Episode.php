@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -29,6 +30,15 @@ class Episode
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     *
+     * @Gedmo\Slug(fields={"name"})
+     *
+     * @var string
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="datetime", name="broadcasted_on")
      *
      * @Assert\DateTime()
@@ -43,6 +53,7 @@ class Episode
      * @Assert\Url(
      *    message = "The url '{{ value }}' is not a valid url",
      * )
+     * @Assert\NotBlank()
      *
      * @var string
      */
@@ -56,8 +67,8 @@ class Episode
     private $local;
 
     /**
-     * @ManyToOne(targetEntity="Feed")
-     * @JoinColumn(name="feed_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Feed", inversedBy="episodes")
+     * @ORM\JoinColumn(name="feed_id", referencedColumnName="id")
      *
      * @var Feed
      */
@@ -157,5 +168,21 @@ class Episode
     public function setFeed($feed)
     {
         $this->feed = $feed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }
