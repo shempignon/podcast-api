@@ -26,7 +26,7 @@ class Episode
      *
      * @Assert\NotBlank()
      *
-     * @Groups({"feedGroup"})
+     * @Groups({"fullFeed"})
      *
      * @var string
      */
@@ -46,6 +46,8 @@ class Episode
      *
      * @Assert\DateTime()
      *
+     * @Groups({"fullFeed"})
+     *
      * @var \DateTime
      */
     private $broadcastedOn;
@@ -57,6 +59,8 @@ class Episode
      *    message = "The url '{{ value }}' is not a valid url",
      * )
      * @Assert\NotBlank()
+     *
+     * @Groups({"fullFeed"})
      *
      * @var string
      */

@@ -25,7 +25,7 @@ class Feed
      *
      * @Assert\NotBlank()
      *
-     * @Groups({"feedGroup"})
+     * @Groups({"smallFeed", "fullFeed"})
      *
      * @var string
      */
@@ -35,6 +35,8 @@ class Feed
      * @ORM\Column(type="string", length=255, unique=true)
      *
      * @Gedmo\Slug(fields={"name"})
+     *
+     * @Groups({"smallFeed", "fullFeed"})
      *
      * @var string
      */
@@ -54,6 +56,8 @@ class Feed
 
     /**
      * @ORM\OneToMany(targetEntity="Episode", mappedBy="feed")
+     *
+     * @Groups({"fullFeed"})
      *
      * @var ArrayCollection
      */

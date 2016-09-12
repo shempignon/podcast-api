@@ -38,7 +38,7 @@ class FeedController extends Controller
         $feeds = $em->getRepository(Feed::class)
             ->findAll();
 
-        return $this->json($feeds);
+        return $this->json($feeds, 200, [], ['groups' => ['smallFeed']]);
     }
 
     /**
@@ -111,7 +111,9 @@ class FeedController extends Controller
      */
     public function showAction(Feed $feed, Request $request)
     {
-        return $this->json($feed, 200, [], ['group' => ['feedGroup']]);
+        $data = $this->get('serializer')->normalize($feed,' json', ['groups' => ['fullFeed']]);
+
+        return $this->json($data);
     }
 
     /**
@@ -147,7 +149,7 @@ class FeedController extends Controller
     {
         $refresher = $this->get('app.podcast.refresher');
         $refresher->setFeed($feed);
-
+        
         return new JsonResponse(count($refresher->execute()));
     }
 }
