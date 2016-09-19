@@ -9,6 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity
  * @ORM\Table(name="episodes")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EpisodeRepository")
  */
 class Episode
 {

@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Serializer;
  * Class FeedController
  * @package AppBundle\Controller
  *
- * @Route("/feeds", defaults={"_format": "html"})
+ * @Route("/feeds", defaults={"_format": "json"})
  */
 class FeedController extends Controller
 {
@@ -142,14 +142,14 @@ class FeedController extends Controller
      *
      * @return JsonResponse
      *
-     * @Route("/{slug}/refresh", name="feeds_refresh", defaults={"_format": "html"})
+     * @Route("/{slug}/refresh", name="feeds_refresh")
      * @Method("GET")
      */
     public function refresh(Feed $feed)
     {
         $refresher = $this->get('app.podcast.refresher');
         $refresher->setFeed($feed);
-        
+
         return new JsonResponse(count($refresher->execute()));
     }
 }
