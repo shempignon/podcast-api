@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Episode;
 use AppBundle\Entity\Feed;
 use AppBundle\Service\Exception\InvalidFeedException;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 
@@ -12,7 +13,6 @@ class RefreshPodcast
     /**
      * @var EntityManager
      */
-
     private $em;
 
     /**
@@ -44,7 +44,7 @@ class RefreshPodcast
 
     private static function getEpisodeDate($episode)
     {
-        return \DateTime::createFromFormat(\DateTime::RSS, $episode->pubDate);
+        return DateTime::createFromFormat(DateTime::RSS, $episode->pubDate);
     }
 
     /**
