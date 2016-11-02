@@ -53,8 +53,9 @@ class FeedController extends Controller
      */
     public function createAction(Request $request)
     {
-        $feed = new Feed();
-        $form = $this->createForm(FeedType::class, $feed);
+        $form = $this->createForm(FeedType::class, new Feed(), [
+            'action' => $this->generateUrl('feeds_store'),
+        ]);
 
         return $this->render('default/form.html.twig', [
             'form' => $form->createView()

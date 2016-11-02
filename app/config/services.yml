@@ -13,12 +13,7 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@css.converter"
-    app.form.feed:
-        class: AppBundle\Form\FeedType
-        arguments:
-            - "@router"
-        tags:
-            - { name: form.type }
+
     gedmo.listener.sluggable:
         class: Gedmo\Sluggable\SluggableListener
         tags:

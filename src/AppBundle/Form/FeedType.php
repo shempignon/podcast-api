@@ -12,13 +12,6 @@ use Symfony\Component\Routing\Router;
 
 class FeedType extends AbstractType
 {
-    private $route;
-
-    public function __construct(Router $router)
-    {
-        $this->route = $router->generate("feeds_store");
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -26,7 +19,6 @@ class FeedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction($this->route)
             ->add('name', TextType::class)
             ->add('url', UrlType::class)
             ->add('send', SubmitType::class);
@@ -38,7 +30,7 @@ class FeedType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'      => Feed::class,
+            'data_class' => Feed::class,
             'csrf_protection' => false,
         ]);
     }
