@@ -5,6 +5,7 @@ use AppBundle\Entity\Episode;
 use AppBundle\Entity\Feed;
 use AppBundle\Service\Exception\InvalidFeedException;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 
@@ -31,6 +32,11 @@ class RefreshPodcast
     private $document;
 
     /**
+     * @var ArrayCollection
+     */
+    private $episodes;
+
+    /**
      * RefreshPodcast constructor.
      *
      * @param EntityManager $entityManager
@@ -40,6 +46,7 @@ class RefreshPodcast
     {
         $this->em = $entityManager;
         $this->converter = $converter;
+        $this->episodes = new ArrayCollection();
     }
 
     private static function getEpisodeDate($episode)
@@ -93,24 +100,21 @@ class RefreshPodcast
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
     private function searchForNewEpisodes()
     {
-        $newEpisodes = [];
-
         foreach ($this->getEpisodes() as $episode) {
             $newEpisode = $this->setNewEpisode($episode);
 
             if (!$this->feed->hasEpisode($newEpisode)) {
-                $this->em->persist($newEpisode);
-                $newEpisodes[] = $newEpisode;
+                $this->save($newEpisode);
             }
         }
 
         $this->em->flush();
 
-        return $newEpisodes;
+        return $this->episodes;
     }
 
     /**
@@ -120,13 +124,21 @@ class RefreshPodcast
      */
     private function setNewEpisode($episode)
     {
-        $broadcastedOn = self::getEpisodeDate($episode);
         $newEpisode = new Episode();
         $newEpisode->setFeed($this->feed);
-        $newEpisode->setName((string) $episode->title . ' - ' . $broadcastedOn->format('Y-m-d'));
-        $newEpisode->setUrl($episode->enclosure->attributes()['url']);
-        $newEpisode->setBroadcastedOn($broadcastedOn);
+        $newEpisode->setName((string) $episode->title);
+        $newEpisode->setUrl((string) $episode->enclosure->attributes()['url']);
+        $newEpisode->setBroadcastedOn(self::getEpisodeDate($episode));
 
         return $newEpisode;
+    }
+
+    /**
+     * @param $newEpisode
+     */
+    private function save($newEpisode)
+    {
+        $this->em->persist($newEpisode);
+        $this->episodes->add($newEpisode);
     }
 }
