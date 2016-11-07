@@ -153,4 +153,25 @@ class FeedController extends Controller
 
         return new JsonResponse(count($refresher->execute()));
     }
+
+    /**
+     * @param Feed $feed
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return JsonResponse
+     *
+     * @Route("/{slug}/download", name="feeds_refresh")
+     * @Method("GET")
+     */
+    public function downloadAction(Feed $feed)
+    {
+        $refresher = $this->get('app.podcast.refresher');
+        $refresher->setFeed($feed);
+
+        $downloader = $this->get('app.podcast.downloader');
+        $downloader->setEpisodes($refresher->execute());
+
+        return $this->json($downloader->execute());
+    }
 }
