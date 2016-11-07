@@ -28,6 +28,9 @@ class EpisodeDownloader
      */
     private $downloadDirectory;
 
+    /**
+     * @var ArrayCollection
+     */
     private $downloadedEpisodes;
 
     public function __construct(Client $client, EntityManager $em, $downloadDirectory)
