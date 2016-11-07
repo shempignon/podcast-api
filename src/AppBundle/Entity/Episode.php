@@ -193,4 +193,39 @@ class Episode
     {
         $this->slug = $slug;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasBeenDownloaded()
+    {
+        return (null !== $this->getLocal());
+    }
+
+    public function buildLocal()
+    {
+        return sprintf(
+            '%s'.DIRECTORY_SEPARATOR.'%s.%s',
+            $this->getFeed()->getSlug(),
+            $this->getSlug(),
+            $this->guessExtension()
+        );
+    }
+
+    private function guessExtension()
+    {
+        $elements = explode('.', $this->getUrl());
+
+        return end($elements);
+    }
+
+    /**
+     * @return $this
+     */
+    public function prepareLocal()
+    {
+        $this->setLocal($this->buildLocal());
+
+        return $this;
+    }
 }

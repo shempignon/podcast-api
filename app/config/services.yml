@@ -4,6 +4,9 @@ parameters:
 #    parameter_name: value
 
 services:
+    guzzle.client:
+        class: GuzzleHttp\Client
+
     css.converter:
         class: Symfony\Component\CssSelector\CssSelectorConverter
         arguments:
@@ -13,6 +16,13 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@css.converter"
+
+    app.podcast.downloader:
+        class: AppBundle\Service\EpisodeDownloader
+        arguments:
+            - "@guzzle.client"
+            - "@doctrine.orm.entity_manager"
+            - "%download_directory%"
 
     gedmo.listener.sluggable:
         class: Gedmo\Sluggable\SluggableListener
