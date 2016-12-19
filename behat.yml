@@ -1,0 +1,11 @@
+default:
+    extensions:
+        Behat\Symfony2Extension: ~
+    suites:
+        xeonys:
+            type: symfony_bundle
+            bundle: AppBundle
+            paths: [ "%paths.base%/./features" ]
+            contexts:
+                - Features\Bootstrap\FeatureContext
+                - Features\Bootstrap\DoctrineContext
