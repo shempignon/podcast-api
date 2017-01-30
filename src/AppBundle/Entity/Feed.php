@@ -52,9 +52,7 @@ class Feed
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      *
-     * @Assert\Url(
-     *    message = "The url '{{ value }}' is not a valid url",
-     * )
+     * @Assert\Url
      * @Assert\NotBlank
      *
      * @var string

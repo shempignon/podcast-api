@@ -50,16 +50,6 @@ class RefreshPodcast
     }
 
     /**
-     * @param $episode
-     *
-     * @return bool|DateTime
-     */
-    private static function getEpisodeDate($episode)
-    {
-        return DateTime::createFromFormat(DateTime::RSS, $episode->pubDate);
-    }
-
-    /**
      * @param Feed $feed
      *
      * @var Feed
@@ -83,6 +73,16 @@ class RefreshPodcast
         $newEpisodes = $this->searchForNewEpisodes();
 
         return $newEpisodes;
+    }
+
+    /**
+     * @param $episode
+     *
+     * @return bool|DateTime
+     */
+    private static function getEpisodeDate($episode)
+    {
+        return DateTime::createFromFormat(DateTime::RSS, $episode->pubDate);
     }
 
     /**
@@ -129,20 +129,18 @@ class RefreshPodcast
      */
     private function setNewEpisode($episode)
     {
-        $newEpisode = new Episode();
-        $newEpisode->setFeed($this->feed);
-        $newEpisode->setName((string) $episode->title);
-        $newEpisode->setUrl((string) $episode->enclosure->attributes()['url']);
-        $newEpisode->setGuid((string) $episode->guid);
-        $newEpisode->setBroadcastedOn(self::getEpisodeDate($episode));
-
-        return $newEpisode;
+        return (new Episode())
+            ->setFeed($this->feed)
+            ->setName((string) $episode->title)
+            ->setUrl((string) $episode->enclosure->attributes()['url'])
+            ->setGuid((string) $episode->guid)
+            ->setBroadcastedOn(self::getEpisodeDate($episode));
     }
 
     /**
-     * @param $newEpisode
+     * @param Episode $newEpisode
      */
-    private function save($newEpisode)
+    private function save(Episode $newEpisode)
     {
         $this->em->persist($newEpisode);
         $this->episodes->add($newEpisode);

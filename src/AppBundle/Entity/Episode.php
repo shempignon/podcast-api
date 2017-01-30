@@ -38,7 +38,7 @@ class Episode
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      *
      * @Groups({"fullFeed"})
      *
@@ -58,7 +58,7 @@ class Episode
     /**
      * @ORM\Column(type="datetime", name="broadcasted_on")
      *
-     * @Assert\DateTime()
+     * @Assert\DateTime
      *
      * @Groups({"fullFeed"})
      *
@@ -69,10 +69,8 @@ class Episode
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      *
-     * @Assert\Url(
-     *    message = "The url '{{ value }}' is not a valid url",
-     * )
-     * @Assert\NotBlank()
+     * @Assert\Url
+     * @Assert\NotBlank
      *
      * @Groups({"fullFeed"})
      *
@@ -121,10 +119,14 @@ class Episode
 
     /**
      * @param string $name
+     *
+     * @return Episode
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -137,10 +139,14 @@ class Episode
 
     /**
      * @param \DateTime $broadcastedOn
+     *
+     * @return Episode
      */
     public function setBroadcastedOn($broadcastedOn)
     {
         $this->broadcastedOn = $broadcastedOn;
+
+        return $this;
     }
 
     /**
@@ -153,10 +159,14 @@ class Episode
 
     /**
      * @param string $url
+     *
+     * @return Episode
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
+        return $this;
     }
 
     /**
@@ -185,10 +195,14 @@ class Episode
 
     /**
      * @param Feed $feed
+     *
+     * @return Episode
      */
     public function setFeed($feed)
     {
         $this->feed = $feed;
+
+        return $this;
     }
 
     /**
@@ -201,10 +215,14 @@ class Episode
 
     /**
      * @param string $slug
+     *
+     * @return Episode
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     /**
