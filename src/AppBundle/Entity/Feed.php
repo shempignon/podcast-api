@@ -1,18 +1,25 @@
 <?php
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="feeds")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FeedRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Feed
 {
+    use Timestampable;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -23,7 +30,7 @@ class Feed
     /**
      * @ORM\Column(type="string", length=100, unique=true)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      *
      * @Groups({"smallFeed", "fullFeed"})
      *
@@ -48,14 +55,14 @@ class Feed
      * @Assert\Url(
      *    message = "The url '{{ value }}' is not a valid url",
      * )
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      *
      * @var string
      */
     private $url;
 
     /**
-     * @ORM\OneToMany(targetEntity="Episode", mappedBy="feed")
+     * @ORM\OneToMany(targetEntity="Episode", mappedBy="feed", cascade={"all"})
      *
      * @Groups({"fullFeed"})
      *
@@ -150,12 +157,12 @@ class Feed
      */
     public function hasEpisode(Episode $newEpisode)
     {
-        foreach ($this->episodes as $episode) {
-            if ($episode->getName() === $newEpisode->getName()) {
-                return true;
-            }
-        }
+        $criteria = (Criteria::create())->where(
+            (Criteria::expr())->eq('guid', $newEpisode->getGuid())
+        );
 
-        return false;
+        return (bool) $this->episodes
+            ->matching($criteria)
+            ->count();
     }
 }

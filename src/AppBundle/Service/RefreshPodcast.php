@@ -49,6 +49,11 @@ class RefreshPodcast
         $this->episodes = new ArrayCollection();
     }
 
+    /**
+     * @param $episode
+     *
+     * @return bool|DateTime
+     */
     private static function getEpisodeDate($episode)
     {
         return DateTime::createFromFormat(DateTime::RSS, $episode->pubDate);
@@ -65,7 +70,7 @@ class RefreshPodcast
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
     public function execute()
     {
@@ -128,6 +133,7 @@ class RefreshPodcast
         $newEpisode->setFeed($this->feed);
         $newEpisode->setName((string) $episode->title);
         $newEpisode->setUrl((string) $episode->enclosure->attributes()['url']);
+        $newEpisode->setGuid((string) $episode->guid);
         $newEpisode->setBroadcastedOn(self::getEpisodeDate($episode));
 
         return $newEpisode;

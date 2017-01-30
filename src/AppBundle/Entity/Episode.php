@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,9 +11,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity
  * @ORM\Table(name="episodes")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EpisodeRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Episode
 {
+    use Timestampable;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -21,6 +25,15 @@ class Episode
      * @var integer
      */
     private $id;
+
+    /**
+     * @ORM\Column
+     *
+     * @Assert\NotBlank
+     *
+     * @var string
+     */
+    private $guid;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -220,11 +233,31 @@ class Episode
     }
 
     /**
-     * @return $this
+     * @return Episode
      */
     public function prepareLocal()
     {
         $this->setLocal($this->buildLocal());
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGuid()
+    {
+        return $this->guid;
+    }
+
+    /**
+     * @param string $guid
+     *
+     * @return Episode
+     */
+    public function setGuid(string $guid)
+    {
+        $this->guid = $guid;
 
         return $this;
     }

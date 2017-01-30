@@ -33,9 +33,8 @@ class FeedController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine();
-
-        $feeds = $em->getRepository(Feed::class)
+        $feeds = $this->getDoctrine()
+            ->getRepository(Feed::class)
             ->findAll();
 
         return $this->json($feeds, 200, [], ['groups' => ['smallFeed']]);
@@ -161,7 +160,7 @@ class FeedController extends Controller
      *
      * @return JsonResponse
      *
-     * @Route("/{slug}/download", name="feeds_refresh")
+     * @Route("/{slug}/download", name="feeds_refresh_download")
      * @Method("GET")
      */
     public function downloadAction(Feed $feed)
