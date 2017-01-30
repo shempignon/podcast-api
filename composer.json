@@ -32,7 +32,8 @@
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "behat/behat": "^3.2",
-        "behat/symfony2-extension": "^2.1"
+        "behat/symfony2-extension": "^2.1",
+        "nelmio/alice": "^3.0@beta"
     },
     "scripts": {
         "post-install-cmd": [
@@ -51,11 +52,6 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
-    },
-    "config": {
-        "platform": {
-            "php": "5.5.9"
-        }
     },
     "extra": {
         "symfony-app-dir": "app",
