@@ -5,11 +5,12 @@ Feature: Feed
   - delete a feed
 
   Scenario Outline: Create a feed
-#    Given data are loaded
+    Given data are loaded
     When the user "POST" <params> to the "/feeds" path
     Then the user should get a <code> response
 
     Examples:
-    | params                                                                          | code  |
-    | '{"name": "Laravel Podcast", "url": "http://simplecast.com/podcasts/351/rss"}'  | 201   |
-    | '{"name": "Laravel Podcast", "url": "fake url"}'                                | 400   |
+    | params                                                                                              | code  |
+    | '{"name": "Les Pieds sur Terre", "url": "http://radiofrance-podcast.net/podcast09/rss_10078.xml"}'  | 201   |
+    | '{"name": "Laravel Podcast", "url": "http://simplecast.com/podcasts/351/rss"}'                      | 400   |
+    | '{"name": "Laravel Podcast", "url": "fake url"}'                                                    | 400   |

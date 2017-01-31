@@ -8,8 +8,11 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use Nelmio\Alice\Loader\NativeLoader;
 use stdClass;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -89,7 +92,9 @@ class FeatureContext implements Context
      */
     public function assertResponse($expectedCode)
     {
-        if ($receivedCode = (string) $this->response->getStatusCode() !== $expectedCode) {
+        $receivedCode = (string) $this->response->getStatusCode();
+
+        if ($receivedCode !== $expectedCode) {
             $format = 'Expected a "%s" status code, received "%s". Content [%s]';
             $message = sprintf($format, $expectedCode, $receivedCode, $this->response->getContent());
             throw new Exception($message);
@@ -101,6 +106,22 @@ class FeatureContext implements Context
      */
     public function dataAreLoaded()
     {
-        throw new PendingException();
+        $loader = new NativeLoader();
+
+        foreach ($this->getFixtures() as $file) {
+            /** @var SplFileInfo $file*/
+            foreach($loader->loadFile($file->getRealPath())->getObjects() as $object) {
+                $this->manager->persist($object);
+            }
+        }
+
+        $this->manager->flush();
+    }
+
+    private function getFixtures()
+    {
+        return (new Finder())
+            ->files()
+            ->in(__DIR__.'/../../app/fixtures');
     }
 }
