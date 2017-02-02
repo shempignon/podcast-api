@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class FeedController
@@ -78,7 +75,7 @@ class FeedController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($feed);
             $em->flush();
@@ -87,12 +84,7 @@ class FeedController extends Controller
 
             $router = $this->get('router');
 
-            return new Response('', 201, [
-                'Location' => $router->generate(
-                    'feeds_show',
-                    ['slug' => $feed->getSlug()]
-                ),
-            ]);
+            return $this->json('', 201, ['Location' => $router->generate('feeds_show', ['slug' => $feed->getSlug()])]);
         }
 
         throw new BadRequestHttpException();

@@ -5,15 +5,16 @@ use AppBundle\Entity\Traits\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-
 /**
  * @ORM\Entity
- * @ORM\Table(name="feeds")
+ * @ORM\Table
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FeedRepository")
+ * @UniqueEntity("url")
  * @ORM\HasLifecycleCallbacks
  */
 class Feed

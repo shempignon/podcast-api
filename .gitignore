@@ -17,3 +17,4 @@
 /.idea
 /web/feeds/*
 !/web/feeds/.gitkeep
+/node_modules/
