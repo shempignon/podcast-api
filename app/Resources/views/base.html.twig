@@ -2,12 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>Podcast</title>
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {% if app.environment == 'dev' %}
+                <script src="http://localhost:8080/static/bundle.js"></script>
+            {% else %}
+                <script src="{{ asset('dist/bundle.js') }}"></script>
+            {% endif %}
+        {% endblock %}
     </body>
 </html>

@@ -2,27 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Feed;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
      *
-     * @param Request $request
-     *
-     * @return JsonResponse
+     * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        $feeds = $this->getDoctrine()
-            ->getRepository(Feed::class)
-            ->findAll();
-
-        return new JsonResponse($feeds);
+        return $this->render('default/index.html.twig');
     }
 }
