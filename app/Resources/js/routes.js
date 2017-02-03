@@ -1,5 +1,6 @@
 import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
@@ -23,6 +24,10 @@ const history = syncHistoryWithStore(browserHistory, store)
 const routes = () => (
     <MuiThemeProvider>
         <Paper zDepth={0}>
+            <AppBar
+                title="Podcast"
+                iconClassNameRight="muidocs-icon-navigation-expand-more"
+            />
             <Provider store={store}>
                 <Router history={history}>
                     <Route path="/" component={Podcasts} />
