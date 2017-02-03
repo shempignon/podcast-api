@@ -1,5 +1,6 @@
 const initialState = [
     {
+        id: 1,
         name: 'Laravel Podcast',
         slug: 'laravel-podcast',
         updatedAt: '2017-01-01'

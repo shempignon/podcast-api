@@ -1,9 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import Podcast from './Podcast'
 
-const Podcasts = () => (
+const Podcasts = ({podcasts}) => (
     <ul>
-        <li>Podcast</li>
+        {podcasts.map(podcast =>
+            <Podcast key={podcast.id} {...podcast} />
+        )}
     </ul>
 )
 
-export default Podcasts
+export default connect(
+    state => ({ podcasts: state.podcasts }),
+    () => {}
+)(Podcasts)
