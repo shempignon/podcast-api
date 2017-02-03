@@ -1,1 +1,1 @@
-export Podcasts from './Podcasts'
+export { default as Podcasts } from './Podcasts'
