@@ -15,7 +15,7 @@ module.exports = {
         // only- means to only hot reload for successful updates
 
 
-        './app/Resources/js/app.js'
+        './app/Resources/js/index.js'
         // the entry point of our app
     ],
     output: {

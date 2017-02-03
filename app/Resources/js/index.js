@@ -1,20 +1,19 @@
-// ./src/index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import { AppContainer } from 'react-hot-loader';
+import { AppContainer } from 'react-hot-loader'
 // AppContainer is a necessary wrapper component for HMR
 
-import Index from './components/Index';
+import Index from './components/Index'
 
 const render = (Component) => {
     ReactDOM.render(
     <AppContainer>
-    <Component/>
+        <Component/>
     </AppContainer>,
         document.getElementById('root')
-    );
-};
+    )
+}
 
 render(Index);
 
@@ -22,5 +21,5 @@ render(Index);
 if (module.hot) {
     module.hot.accept('./components/App', () => {
         render(Index)
-    });
+    })
 }
