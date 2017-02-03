@@ -1,11 +1,8 @@
-// ./src/components/App.js
 import React from 'react';
-import styles from './App.css';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const App = () => (
-    <div className={styles.app}>
-        <h2>Hello, </h2>
-    </div>
+    <RaisedButton label="Default" />
 );
 
 export default App;
