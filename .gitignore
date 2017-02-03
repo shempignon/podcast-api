@@ -20,3 +20,5 @@
 /web/dist/*
 !/web/dist/.gitkeep
 /node_modules/
+/app/data/*
+!/app/data/.gitkeep
