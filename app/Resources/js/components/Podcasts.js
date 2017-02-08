@@ -1,16 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Podcast from './Podcast'
 import { fetchPodcasts } from '../actions'
+import RaisedButton from 'material-ui/RaisedButton'
+import { List, ListItem } from 'material-ui/List'
 
 const Podcasts = ({podcasts, status, fetchPodcasts}) => (
     <div>
-        <button onClick={ fetchPodcasts }>Fetch</button>
-        <ul>
+        <RaisedButton primary="true" style={{margin: 12}} onClick={ fetchPodcasts }>Fetch</RaisedButton>
+        <List>
             {podcasts.map(podcast =>
-                <Podcast key={podcast.slug} {...podcast} />
+                <ListItem primaryText={podcast.name} />
             )}
-        </ul>
+        </List>
     </div>
 )
 
