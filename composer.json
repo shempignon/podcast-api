@@ -14,7 +14,7 @@
         }
     },
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0",
         "symfony/symfony": "3.1.*",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
@@ -33,7 +33,8 @@
         "symfony/phpunit-bridge": "^3.0",
         "behat/behat": "^3.2",
         "behat/symfony2-extension": "^2.1",
-        "nelmio/alice": "^3.0@beta"
+        "nelmio/alice": "^3.0@beta",
+        "phpunit/phpunit": "^5.7"
     },
     "scripts": {
         "post-install-cmd": [
