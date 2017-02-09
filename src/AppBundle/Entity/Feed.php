@@ -164,4 +164,15 @@ class Feed
             ->matching($criteria)
             ->count();
     }
+
+    /**
+     * Returns updatedAt.
+     *
+     * @return \DateTime
+     * @Groups({"smallFeed", "fullFeed"})
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 }
