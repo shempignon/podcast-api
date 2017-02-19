@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { createLogic } from 'redux-logic'
 import {
     PODCAST_FETCH,
@@ -12,7 +11,7 @@ const podcastFetchLogic = createLogic({
     latest: true, // take latest only
 
     // use axios injected as httpClient from configureStore logic deps
-    process({ httpClient, getState, action }, dispatch, done) {
+    process({ httpClient }, dispatch, done) {
         httpClient.get('/feeds')
             .then(resp => resp.data) // use results prop of payload
             .then(results => dispatch({
@@ -31,8 +30,6 @@ const podcastFetchLogic = createLogic({
     }
 })
 
-export const deps = {
-    httpClient: axios
-}
-
-export const logics = [ podcastFetchLogic ]
+export default [
+    podcastFetchLogic
+]

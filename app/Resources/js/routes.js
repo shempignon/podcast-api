@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router'
-import { Podcasts } from './components'
+import { Podcasts } from './podcasts/index'
 import { store, history } from './store'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

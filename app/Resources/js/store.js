@@ -1,18 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import axios from 'axios'
+import { createStore, applyMiddleware } from 'redux'
 import { createLogicMiddleware } from 'redux-logic'
-import { podcasts, initialState } from './reducers'
 import { browserHistory } from 'react-router'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import { logics, deps} from './logics'
-
-const logicMiddleware = createLogicMiddleware(logics, deps)
+import { syncHistoryWithStore } from 'react-router-redux'
+import rootReducer from './rootReducer'
+import rootLogic from './rootLogic'
 
 export const store = createStore(
-    combineReducers({
-        podcasts,
-        routing: routerReducer
-    }),
-    applyMiddleware(logicMiddleware)
+    rootReducer,
+    applyMiddleware(
+        createLogicMiddleware(rootLogic, {httpClient: axios})
+    )
 )
 
 export const history = syncHistoryWithStore(browserHistory, store)

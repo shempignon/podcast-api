@@ -1,15 +1,11 @@
-import {
-    PODCAST_FETCH,
-    PODCAST_FETCH_FULFILLED,
-    PODCAST_FETCH_REJECTED
-} from './actions'
+import { PODCAST_FETCH, PODCAST_FETCH_REJECTED, PODCAST_FETCH_FULFILLED } from './actions'
 
-export const initialState = {
+const initialState = {
     list: [],
     status: ''
 }
 
-export const podcasts = (state = initialState, action)  => {
+export default function reducer(state = initialState, action){
     switch(action.type) {
         case PODCAST_FETCH:
             return {
