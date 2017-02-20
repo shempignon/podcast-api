@@ -1,4 +1,4 @@
-import { PODCAST_FETCH, PODCAST_FETCH_REJECTED, PODCAST_FETCH_FULFILLED } from './actions'
+import { PODCASTS_FETCH, PODCASTS_FETCH_REJECTED, PODCASTS_FETCH_FULFILLED } from './actions'
 
 const initialState = {
     list: [],
@@ -7,24 +7,24 @@ const initialState = {
 
 export default function reducer(state = initialState, action){
     switch(action.type) {
-        case PODCAST_FETCH:
+        case PODCASTS_FETCH:
             return {
                 ...state,
-                fetchStatus: `fetching for ${action.payload}... ${(new Date()).toLocaleString()}`,
+                status: 'Loading podcasts...',
                 list: []
-            };
-        case PODCAST_FETCH_FULFILLED:
+            }
+        case PODCASTS_FETCH_FULFILLED:
             return {
                 ...state,
                 list: action.payload,
-                fetchStatus: `Results from ${(new Date()).toLocaleString()}`
-            };
-        case PODCAST_FETCH_REJECTED:
+                status: `Results from ${(new Date()).toLocaleString()}`
+            }
+        case PODCASTS_FETCH_REJECTED:
             return {
                 ...state,
-                fetchStatus: `errored: ${action.payload}`
-            };
+                status: `errored: ${action.payload}`
+            }
         default:
-            return state;
+            return state
     }
 }
