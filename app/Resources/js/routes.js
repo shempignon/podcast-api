@@ -3,13 +3,13 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute } from 'react-router'
 import { Podcasts } from './podcasts/index'
 import { store, history } from './store'
-import { App } from "./layout/component"
+import { Layout } from "./layout/index"
 import { Podcast } from "./podcast/index"
 
 const routes = () => (
     <Provider store={store}>
         <Router history={history}>
-            <Route path="/" component={App} >
+            <Route path="/" component={Layout} >
                 <IndexRoute component={Podcasts}/>
                 <Route path='/podcasts' component={Podcasts} />
                 <Route path='/podcast/:slug' component={Podcast} />
