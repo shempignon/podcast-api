@@ -17,11 +17,13 @@ class Podcast extends Component {
         return (
             <div>
                 <List>
-					<Subheader>{this.props.podcast.name}</Subheader>
                     {(this.props.podcast.episodes.length == 0) ?
                         this.props.status :
                         this.props.podcast.episodes.map(episode =>
-                        <ListItem key={episode.url} primaryText={episode.name} />
+                        <ListItem key={episode.url}
+                                  primaryText={episode.name}
+                                  secondaryText={(new Date(episode.broadcastedOn)).toLocaleDateString()}
+                        />
                     )}
                 </List>
             </div>

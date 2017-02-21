@@ -5,6 +5,7 @@ import {
     PODCAST_FETCH_FULFILLED,
     PODCAST_FETCH_REJECTED
 } from './actions'
+import { UPDATE_TITLE } from "../layout/actions";
 
 const podcastFetchLogic = createLogic({
     type: PODCAST_SELECT,
@@ -22,15 +23,23 @@ const podcastFetchLogic = createLogic({
     process({ httpClient, getState, action }, dispatch, done) {
         httpClient.get(`/feeds/${action.slug}`)
             .then(resp => resp.data)
-            .then(results => (!results.episodes.length ?
-				dispatch({
-					type: PODCAST_REFRESH,
-					slug: action.slug
-				}) :
-				dispatch({
-					type: PODCAST_FETCH_FULFILLED,
-					payload: results
-				})))
+            .then(results => {
+				if (!results.episodes.length) {
+					dispatch({
+						type: PODCAST_REFRESH,
+						slug: action.slug
+					})
+				} else {
+					dispatch({
+						type: PODCAST_FETCH_FULFILLED,
+						payload: results
+					})
+                    dispatch({
+                        type: UPDATE_TITLE,
+                        title: results.name
+                    })
+				}
+			})
             .catch(err => {
                 console.error(err)
                 dispatch({
