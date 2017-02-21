@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { selectPodcast } from './actions'
 import { List, ListItem } from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
 
 class Podcast extends Component {
     constructor(props) {
@@ -15,8 +16,8 @@ class Podcast extends Component {
     render() {
         return (
             <div>
-                <h2>{this.props.podcast.name}</h2>
                 <List>
+					<Subheader>{this.props.podcast.name}</Subheader>
                     {(this.props.podcast.episodes.length == 0) ?
                         this.props.status :
                         this.props.podcast.episodes.map(episode =>
