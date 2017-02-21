@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import routes from './routes'
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-injectTapEventPlugin();
+injectTapEventPlugin()
 
 const render = (Component) => {
     ReactDOM.render(
@@ -15,7 +15,7 @@ const render = (Component) => {
     )
 }
 
-render(routes);
+render(routes)
 
 // Hot Module Replacement API
 if (module.hot) {

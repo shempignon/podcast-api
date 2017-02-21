@@ -37,7 +37,7 @@ const podcastFetchLogic = createLogic({
                     type: PODCAST_FETCH_REJECTED,
                     payload: err,
                     error: true
-                });
+                })
             })
             .then(() => done())
     }
@@ -69,7 +69,7 @@ const podcastRefreshLogic = createLogic({
 					type: PODCAST_FETCH_REJECTED,
 					payload: err,
 					error: true
-				});
+				})
 			})
 			.then(() => done())
 	}
