@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { selectPodcast } from './actions'
 import { List, ListItem } from 'material-ui/List'
-import Subheader from 'material-ui/Subheader'
 
 class Podcast extends Component {
     constructor(props) {

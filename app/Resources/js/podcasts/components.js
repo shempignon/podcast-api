@@ -3,30 +3,22 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchPodcasts } from './actions'
 import { List, ListItem } from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
 
-class Podcasts extends Component {
-    constructor(props) {
-        super(props)
+const Podcasts = ({podcasts, status, fetchPodcasts}) => {
+    if (status != 'Loaded') {
+        fetchPodcasts()
     }
 
-    componentDidMount() {
-        this.props.fetchPodcasts()
-    }
-
-    render() {
-        return (
-            <List>
-                {(this.props.podcasts.length == 0) ?
-                    this.props.status :
-                    this.props.podcasts.map(podcast =>
-                        <ListItem key={podcast.slug} primaryText={podcast.name} containerElement={
-                            <Link to={`/podcast/${podcast.slug}`} />
-                        } />
-                    )
-                }
-            </List>
-        )
-    }
+    return (
+        <List>
+            <Subheader>Shows</Subheader>
+            {podcasts.map(podcast =>
+                <ListItem key={podcast.slug} primaryText={podcast.name} containerElement={
+                    <Link to={`/podcast/${podcast.slug}`} />
+                } />)}
+        </List>
+    )
 }
 
 export default connect(

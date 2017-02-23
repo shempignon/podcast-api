@@ -17,7 +17,7 @@ export default function reducer(state = initialState, action){
             return {
                 ...state,
                 list: action.payload,
-                status: `Results from ${(new Date()).toLocaleString()}`
+                status: 'Loaded'
             }
         case PODCASTS_FETCH_REJECTED:
             return {
