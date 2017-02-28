@@ -16,6 +16,7 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@css.converter"
+            - "%feeds_dir%"
 
     app.podcast.downloader:
         class: AppBundle\Service\EpisodeDownloader

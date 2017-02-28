@@ -10,7 +10,8 @@ Feature: Feed
     Then the user should get a <code> response
 
     Examples:
-    | params                                                                                              | code  |
-    | '{"name": "Les Pieds sur Terre", "url": "http://radiofrance-podcast.net/podcast09/rss_10078.xml"}'  | 201   |
-    | '{"name": "Laravel Podcast", "url": "http://simplecast.com/podcasts/351/rss"}'                      | 400   |
-    | '{"name": "Laravel Podcast", "url": "fake url"}'                                                    | 400   |
+    | params                                                                          | code  |
+    | '{"url": "http://radiofrance-podcast.net/podcast09/rss_10078.xml"}'             | 201   |
+    | '{"name": "Laravel Podcast", "url": "http://simplecast.com/podcasts/351/rss"}'  | 400   |
+    | '{"url": "http://simplecast.com/podcasts/351/rss"}'                             | 400   |
+    | '{"name": "Laravel Podcast", "url": "fake url"}'                                | 400   |

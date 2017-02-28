@@ -77,10 +77,10 @@ class FeedController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($feed);
+            $refresher = $this->get('app.podcast.refresher');
+            $refresher->setFeed($feed);
+            $refresher->execute();
             $em->flush();
-
-            @mkdir($this->getParameter('feeds_dir') . $feed->getSlug());
 
             $router = $this->get('router');
 

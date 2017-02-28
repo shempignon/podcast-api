@@ -31,8 +31,6 @@ class Feed
     /**
      * @ORM\Column(type="string", length=100, unique=true)
      *
-     * @Assert\NotBlank
-     *
      * @Groups({"smallFeed", "fullFeed"})
      *
      * @var string

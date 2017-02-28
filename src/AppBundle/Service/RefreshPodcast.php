@@ -14,7 +14,7 @@ class RefreshPodcast
     /**
      * @var EntityManager
      */
-    private $em;
+    private $manager;
 
     /**
      * @var Feed
@@ -37,15 +37,22 @@ class RefreshPodcast
     private $episodes;
 
     /**
+     * @var string
+     */
+    private $feedDirectory;
+
+    /**
      * RefreshPodcast constructor.
      *
      * @param EntityManager $entityManager
      * @param CssSelectorConverter $converter
+     * @param string $feedDirectory
      */
-    public function __construct(EntityManager $entityManager, CssSelectorConverter $converter)
+    public function __construct(EntityManager $entityManager, CssSelectorConverter $converter, $feedDirectory)
     {
-        $this->em = $entityManager;
+        $this->manager = $entityManager;
         $this->converter = $converter;
+        $this->feedDirectory = $feedDirectory;
         $this->episodes = new ArrayCollection();
     }
 
@@ -69,6 +76,10 @@ class RefreshPodcast
         }
 
         $this->document = $this->getXmlFromFeed();
+
+        if (null === $this->feed->getName()) {
+            $this->updateFeed();
+        }
 
         $newEpisodes = $this->searchForNewEpisodes();
 
@@ -101,7 +112,15 @@ class RefreshPodcast
      */
     private function getEpisodes()
     {
-        return $this->document->xpath($this->converter->toXPath('rss > channel > item'));
+        return $this->findInXML('rss > channel > item');
+    }
+
+    /**
+     * @return \SimpleXMLElement[]
+     */
+    private function getChannel()
+    {
+        return $this->findInXML('rss > channel');
     }
 
     /**
@@ -117,7 +136,7 @@ class RefreshPodcast
             }
         }
 
-        $this->em->flush();
+        $this->manager->flush();
 
         return $this->episodes;
     }
@@ -142,7 +161,35 @@ class RefreshPodcast
      */
     private function save(Episode $newEpisode)
     {
-        $this->em->persist($newEpisode);
+        $this->manager->persist($newEpisode);
         $this->episodes->add($newEpisode);
+    }
+
+    /**
+     * Update the feed with the XML data
+     */
+    private function updateFeed()
+    {
+        foreach ($this->getChannel() as $channel) {
+            if (property_exists($channel, 'title')) {
+                $this->feed->setName((string) $channel->title);
+            }
+        }
+
+        $this->manager->persist($this->feed);
+        // We are forced to lush to generate the slug
+        $this->manager->flush([$this->feed]);
+
+        @mkdir($this->feedDirectory.$this->feed->getSlug());
+    }
+
+    /**
+     * @param $cssExpr
+     *
+     * @return \SimpleXMLElement[]
+     */
+    private function findInXML($cssExpr)
+    {
+        return $this->document->xpath($this->converter->toXPath($cssExpr));
     }
 }
