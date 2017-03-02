@@ -14,4 +14,4 @@ Feature: Feed
     | '{"url": "http://radiofrance-podcast.net/podcast09/rss_10078.xml"}'             | 201   |
     | '{"name": "Laravel Podcast", "url": "http://simplecast.com/podcasts/351/rss"}'  | 400   |
     | '{"url": "http://simplecast.com/podcasts/351/rss"}'                             | 400   |
-    | '{"name": "Laravel Podcast", "url": "fake url"}'                                | 400   |
+    | '{"url": "fake url"}'                                                           | 400   |
