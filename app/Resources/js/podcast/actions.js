@@ -16,7 +16,7 @@ export const actionTypes = {
 
 // Action creators
 export const selectPodcast = slug => ({ type: PODCAST_SELECT, slug })
-export const refreshPodcast = (slug, name) => ({ type: PODCAST_REFRESH, slug, name })
+export const refreshPodcast = slug => ({ type: PODCAST_REFRESH, slug })
 export const fetchFulfilled = payload => ({type: PODCAST_FETCH_FULFILLED, payload })
 export const fetchRejected = err => ({
     type: PODCAST_FETCH_REJECTED,

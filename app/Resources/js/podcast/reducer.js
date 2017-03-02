@@ -1,4 +1,4 @@
-import { PODCAST_SELECT, PODCAST_REFRESH, PODCAST_FETCH_FULFILLED, PODCAST_FETCH_REJECTED } from './actions'
+import { PODCAST_SELECT, PODCAST_FETCH_FULFILLED, PODCAST_FETCH_REJECTED } from './actions'
 
 const initialState = {
     status: '',
@@ -16,11 +16,6 @@ export default function reducer(state = initialState, action){
             return {
                 ...state,
                 status: `fetching for ${action.payload}...`
-            }
-        case PODCAST_REFRESH:
-            return {
-                ...state,
-                status: `Refreshing ${action.name}...`
             }
         case PODCAST_FETCH_FULFILLED:
             return {
