@@ -1,8 +1,8 @@
 import { createLogic } from 'redux-logic'
 import {
     PODCASTS_FETCH,
-    PODCASTS_FETCH_FULFILLED,
-    PODCASTS_FETCH_REJECTED
+    fetchRejected,
+    fetchFulfilled
 } from './actions'
 
 const podcastFetchLogic = createLogic({
@@ -14,17 +14,10 @@ const podcastFetchLogic = createLogic({
     process({ httpClient }, dispatch, done) {
         httpClient.get('/feeds')
             .then(resp => resp.data)
-            .then(results => dispatch({
-                type: PODCASTS_FETCH_FULFILLED,
-                payload: results
-            }))
+            .then(results => dispatch(fetchFulfilled(results)))
             .catch(err => {
                 console.error(err)
-                dispatch({
-                    type: PODCASTS_FETCH_REJECTED,
-                    payload: err,
-                    error: true
-                })
+                dispatch(fetchRejected(err))
             })
             .then(() => done())
     }

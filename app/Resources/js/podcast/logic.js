@@ -2,10 +2,12 @@ import { createLogic } from 'redux-logic'
 import {
     PODCAST_SELECT,
     PODCAST_REFRESH,
-    PODCAST_FETCH_FULFILLED,
-    PODCAST_FETCH_REJECTED
+    fetchRejected,
+    fetchFulfilled,
+	refreshPodcast,
+    selectPodcast
 } from './actions'
-import { UPDATE_TITLE } from "../layout/actions";
+import { updateTitle } from "../layout/actions";
 
 const podcastFetchLogic = createLogic({
     type: PODCAST_SELECT,
@@ -25,28 +27,15 @@ const podcastFetchLogic = createLogic({
             .then(resp => resp.data)
             .then(results => {
 				if (!results.episodes.length) {
-					dispatch({
-						type: PODCAST_REFRESH,
-						slug: action.slug
-					})
+					dispatch(refreshPodcast(action.slug))
 				} else {
-					dispatch({
-						type: PODCAST_FETCH_FULFILLED,
-						payload: results
-					})
-                    dispatch({
-                        type: UPDATE_TITLE,
-                        title: results.name
-                    })
+					dispatch(fetchFulfilled(results))
+                    dispatch(updateTitle(results.name))
 				}
 			})
             .catch(err => {
                 console.error(err)
-                dispatch({
-                    type: PODCAST_FETCH_REJECTED,
-                    payload: err,
-                    error: true
-                })
+                dispatch(fetchRejected(err))
             })
             .then(() => done())
     }
@@ -68,17 +57,10 @@ const podcastRefreshLogic = createLogic({
 	process({ httpClient, getState, action }, dispatch, done) {
 		httpClient.get(`/feeds/${action.slug}/refresh`)
 			.then(resp => resp.data)
-			.then(results => dispatch({
-				type: PODCAST_SELECT,
-				slug: action.slug
-			}))
+			.then(results => dispatch(selectPodcast(action.slug)))
 			.catch(err => {
 				console.error(err)
-				dispatch({
-					type: PODCAST_FETCH_REJECTED,
-					payload: err,
-					error: true
-				})
+				dispatch(fetchRejected(err))
 			})
 			.then(() => done())
 	}
