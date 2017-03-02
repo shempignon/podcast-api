@@ -5,23 +5,30 @@ import { fetchPodcasts } from './actions'
 import { List, ListItem } from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
 
-const Podcasts = ({podcasts, status, fetchPodcasts}) => {
-    if (status != 'Loaded') {
-        fetchPodcasts()
+class Podcasts extends Component {
+    constructor(props) {
+        super(props)
     }
 
-    return (
-        <List>
-            <Subheader>Shows</Subheader>
-            {podcasts.map(podcast =>
-                <ListItem key={podcast.slug} primaryText={podcast.name} containerElement={
-                    <Link to={`/podcast/${podcast.slug}`} />
-                } />)}
-        </List>
-    )
+    componentWillMount() {
+        this.props.fetchPodcasts()
+    }
+
+    render() {
+        const {podcasts} = this.props
+        return (
+            <List>
+                <Subheader>Shows</Subheader>
+                {podcasts.map(podcast =>
+                    <ListItem key={podcast.slug} primaryText={podcast.name} containerElement={
+                        <Link to={`/podcast/${podcast.slug}`} />}
+                    />)}
+            </List>
+        )
+    }
 }
 
 export default connect(
-    state => ({ podcasts: state.podcasts.list, status: state.podcasts.status }),
+    state => ({ podcasts: state.podcasts.list }),
     { fetchPodcasts }
 )(Podcasts)
