@@ -4,7 +4,8 @@ import {
     ADD_PODCAST_SUCCESS,
     ADD_PODCAST_FAILTURE
 } from './actions'
-import {PODCASTS_FETCH} from "../podcasts/actions";
+import { PODCASTS_FETCH } from '../podcasts/actions'
+import { selectors as addPodcastSel } from './reducer'
 
 const addPodcastLogic = createLogic({
     type: ADD_PODCAST,
@@ -12,7 +13,8 @@ const addPodcastLogic = createLogic({
     latest: true,
 
     validate({ getState, action }, allow, reject) {
-        if (action.url) {
+        const url = addPodcastSel.url(getState())
+        if (url) {
             allow(action)
         } else {
             reject()
@@ -20,9 +22,10 @@ const addPodcastLogic = createLogic({
     },
 
     // use axios injected as httpClient from configureStore logic deps
-    process({ httpClient, getState, action }, dispatch, done) {
+    process({ httpClient, getState }, dispatch, done) {
+        const url = addPodcastSel.url(getState())
         let params = new FormData()
-        params.append('url', action.url)
+        params.append('url', url)
 
         httpClient.post('/feeds', params)
             .then(resp => resp.data)
