@@ -4,7 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import Paper from 'material-ui/Paper'
-import { toggleDrawer } from './actions'
+import Snackbar from 'material-ui/Snackbar'
+import { toggleDrawer, toggleSnackbar } from './actions'
 import { Podcasts } from '../podcasts/index'
 import { AddPodcast } from '../addPodcast/index'
 
@@ -15,7 +16,7 @@ const Menu = () => (
     </div>
 )
 
-const Layout = ({title, openDrawer, toggleDrawer, children}) => (
+const Layout = ({title, notification, openDrawer, openSnackbar, toggleDrawer, toggleSnackbar, children}) => (
     <MuiThemeProvider>
         <Paper zDepth={0}>
             <AppBar title={title}
@@ -26,6 +27,11 @@ const Layout = ({title, openDrawer, toggleDrawer, children}) => (
                     open={openDrawer}
                     onRequestChange={toggleDrawer}
             />
+            <Snackbar open={openSnackbar}
+                      message={notification}
+                      autoHideDuration={1500}
+                      onRequestClose={toggleSnackbar}
+            />
             {children}
         </Paper>
     </MuiThemeProvider>
@@ -34,7 +40,9 @@ const Layout = ({title, openDrawer, toggleDrawer, children}) => (
 export default connect(
     state => ({
     	title: state.layout.title,
-		openDrawer: state.layout.openDrawer
+    	notification: state.layout.notification,
+		openSnackbar: state.layout.openSnackbar,
+		openDrawer: state.layout.openDrawer,
 	}),
-	{ toggleDrawer }
+	{ toggleDrawer, toggleSnackbar }
 )(Layout)
