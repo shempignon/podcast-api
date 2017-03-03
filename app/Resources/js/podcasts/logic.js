@@ -4,6 +4,7 @@ import {
     fetchRejected,
     fetchFulfilled
 } from './actions'
+import { sendNotification } from '../layout/actions'
 
 const podcastFetchLogic = createLogic({
     type: PODCASTS_FETCH,
@@ -14,7 +15,10 @@ const podcastFetchLogic = createLogic({
     process({ httpClient }, dispatch, done) {
         httpClient.get('/feeds')
             .then(resp => resp.data)
-            .then(results => dispatch(fetchFulfilled(results)))
+            .then(results => {
+                dispatch(sendNotification(`${results.length} podcasts found`))
+                dispatch(fetchFulfilled(results))
+            })
             .catch(err => {
                 console.error(err)
                 dispatch(fetchRejected(err))
