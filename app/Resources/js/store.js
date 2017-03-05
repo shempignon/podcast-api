@@ -1,16 +1,23 @@
 import axios from 'axios'
-import { createStore, applyMiddleware } from 'redux'
+import { compose, createStore, applyMiddleware } from 'redux'
 import { createLogicMiddleware } from 'redux-logic'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import rootReducer from './rootReducer'
 import rootLogic from './rootLogic'
 
-export const store = createStore(
-    rootReducer,
-    applyMiddleware(
-        createLogicMiddleware(rootLogic, {httpClient: axios})
-    )
+
+const middleware = applyMiddleware(
+    createLogicMiddleware(rootLogic, {httpClient: axios})
 )
+
+const enhancer = (typeof devToolsExtension !== 'undefined') ?
+    compose(
+        middleware,
+        devToolsExtension()
+    ) :
+    middleware
+
+export const store = createStore(rootReducer, enhancer)
 
 export const history = syncHistoryWithStore(browserHistory, store)
