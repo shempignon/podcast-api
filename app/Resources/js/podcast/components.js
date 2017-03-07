@@ -9,7 +9,15 @@ class Podcast extends Component {
     }
 
     componentDidMount() {
-        this.props.selectPodcast(this.props.routeParams.slug)
+        if (this.props.podcast.name == '') {
+            this.props.selectPodcast(this.props.routeParams.slug)
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.routeParams.slug != nextProps.routeParams.slug) {
+            this.props.selectPodcast(nextProps.routeParams.slug)
+        }
     }
 
     render() {
