@@ -10,7 +10,7 @@ class Podcasts extends Component {
         super(props)
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchPodcasts()
     }
 
