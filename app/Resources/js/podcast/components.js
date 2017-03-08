@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { selectPodcast } from './actions'
 import { List, ListItem } from 'material-ui/List'
+import { closeDrawer } from '../layout/actions'
 
 class Podcast extends Component {
     constructor(props) {
@@ -15,18 +16,20 @@ class Podcast extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.routeParams.slug != nextProps.routeParams.slug) {
-            this.props.selectPodcast(nextProps.routeParams.slug)
+        const { routeParams, selectPodcast, closeDrawer } = this.props
+        const newSlug = nextProps.routeParams.slug
+        if (routeParams.slug != newSlug) {
+            selectPodcast(newSlug)
         }
+
+        closeDrawer()
     }
 
     render() {
         return (
             <div>
                 <List>
-                    {(this.props.podcast.episodes.length == 0) ?
-                        this.props.status :
-                        this.props.podcast.episodes.map(episode =>
+                    {this.props.podcast.episodes.map(episode =>
                         <ListItem key={episode.url}
                                   primaryText={episode.name}
                                   secondaryText={(new Date(episode.broadcastedOn)).toLocaleDateString()}
@@ -40,5 +43,5 @@ class Podcast extends Component {
 
 export default connect(
     state => ({ podcast: state.podcast.podcast, status: state.podcast.status }),
-    { selectPodcast }
+    { selectPodcast, closeDrawer }
 )(Podcast)

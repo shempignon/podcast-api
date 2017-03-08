@@ -1,4 +1,4 @@
-import { key, UPDATE_TITLE, TOGGLE_DRAWER, TOGGLE_SNACKBAR, UPDATE_NOTIFICATION } from './actions'
+import { key, UPDATE_TITLE, TOGGLE_DRAWER, CLOSE_DRAWER, TOGGLE_SNACKBAR, UPDATE_NOTIFICATION } from './actions'
 
 const initialState = {
     title: 'Podcasts',
@@ -30,6 +30,11 @@ export default function reducer(state = initialState, action){
 			return {
 				...state,
 				openDrawer: !state.openDrawer
+			}
+		case CLOSE_DRAWER:
+			return {
+				...state,
+				openDrawer: false
 			}
 		case TOGGLE_SNACKBAR:
 			return {
