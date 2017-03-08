@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { selectPodcast } from './actions'
 import { List, ListItem } from 'material-ui/List'
 import { closeDrawer } from '../layout/actions'
+import { playSong } from '../player/actions'
 
 class Podcast extends Component {
     constructor(props) {
@@ -26,22 +27,23 @@ class Podcast extends Component {
     }
 
     render() {
+        const { podcast, playSong } = this.props
+
         return (
-            <div>
-                <List>
-                    {this.props.podcast.episodes.map(episode =>
-                        <ListItem key={episode.url}
-                                  primaryText={episode.name}
-                                  secondaryText={(new Date(episode.broadcastedOn)).toLocaleDateString()}
-                        />
-                    )}
-                </List>
-            </div>
+            <List>
+                {podcast.episodes.map(episode =>
+                    <ListItem key={episode.url}
+                              primaryText={episode.name}
+                              secondaryText={(new Date(episode.broadcastedOn)).toLocaleDateString()}
+                              onTouchTap={() => playSong(episode.url)}
+                    />
+                )}
+            </List>
         )
     }
 }
 
 export default connect(
     state => ({ podcast: state.podcast.podcast, status: state.podcast.status }),
-    { selectPodcast, closeDrawer }
+    { selectPodcast, closeDrawer, playSong }
 )(Podcast)

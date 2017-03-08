@@ -6,8 +6,9 @@ import Drawer from 'material-ui/Drawer'
 import Paper from 'material-ui/Paper'
 import Snackbar from 'material-ui/Snackbar'
 import { toggleDrawer, toggleSnackbar } from './actions'
-import { Podcasts } from '../podcasts/index'
-import { AddPodcast } from '../addPodcast/index'
+import { Podcasts } from '../podcasts'
+import { AddPodcast } from '../addPodcast'
+import { Player } from '../player'
 
 const Menu = () => (
     <div>
@@ -33,6 +34,7 @@ const Layout = ({title, notification, openDrawer, openSnackbar, toggleDrawer, to
                       onRequestClose={toggleSnackbar}
             />
             {children}
+            <Player />
         </Paper>
     </MuiThemeProvider>
 )
