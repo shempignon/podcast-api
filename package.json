@@ -27,6 +27,7 @@
     "rxjs": "^5.1.0"
   },
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build": "webpack -p --progress --profile --colors"
   }
 }
