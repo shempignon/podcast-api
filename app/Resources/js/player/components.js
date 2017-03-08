@@ -7,12 +7,9 @@ import AvPause from 'material-ui/svg-icons/av/pause'
 import { play, pause, toggleSound, updateVolume } from './actions'
 
 const style = {
-    checkbox:{
-        marginBottom: 16
-    },
-    player:{
+    player: {
         position: 'fixed',
-        padding: '10',
+        padding: '10px',
         bottom: 0,
         left: 0,
         right: 0
@@ -24,22 +21,15 @@ class Player extends Component {
         super(props)
     }
 
-    togglePlaying(playing) {
-        const { play, pause } = this.props
-
-        return (playing) ? play() : pause()
-    }
-
     render() {
-        const { isPlaying, muted, volume } = this.props
+        const { isPlaying, muted, volume, play, pause } = this.props
         return (
             <Paper zDepth={4} style={style.player}>
                 <Checkbox
                     checked={isPlaying}
-                    style={style.checkbox}
                     checkedIcon={<AvPause />}
                     uncheckedIcon={<AvPlayArrow />}
-                    onCheck={(e, playing) => this.togglePlaying(playing)}
+                    onCheck={(e, playing) => ((playing) ? play() : pause())}
                 />
             </Paper>
         )
