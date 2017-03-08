@@ -10,7 +10,7 @@ const playSongLogic = createLogic({
 	debounce: 500,
 
 	validate({ getState, action }, allow, reject) {
-		if (action.song) {
+		if (action.payload) {
 			allow(action)
 		} else {
 			reject()
@@ -18,7 +18,7 @@ const playSongLogic = createLogic({
 	},
 
 	process({ httpClient, getState, action }, dispatch, done) {
-	    dispatch(setSong(action.song))
+	    dispatch(setSong(action.payload))
 	    dispatch(play())
         done()
 	}

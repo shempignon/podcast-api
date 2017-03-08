@@ -4,7 +4,9 @@ export const key = 'player'
 // Action types
 export const PLAY = 'PLAY'
 export const PAUSE = 'PAUSE'
-export const TOGGLE_SOUND = 'TOGGLE_SOUND'
+export const MUTE = 'MUTE'
+export const MUTE = 'MUTE'
+export const UNMUTE = 'UNMUTE'
 export const UPDATE_VOLUME = 'UPDATE_VOLUME'
 export const SET_SONG = 'SET_SONG'
 export const PLAY_SONG = 'PLAY_SONG'
@@ -12,7 +14,8 @@ export const PLAY_SONG = 'PLAY_SONG'
 export const actionTypes = {
     PLAY,
     PAUSE,
-    TOGGLE_SOUND,
+    MUTE,
+    UNMUTE,
     UPDATE_VOLUME,
     SET_SONG,
     PLAY_SONG
@@ -21,15 +24,17 @@ export const actionTypes = {
 // Action creators
 export const play = () => ({ type: PLAY })
 export const pause = () => ({ type: PAUSE })
-export const toggleSound = () => ({ type: TOGGLE_SOUND })
-export const updateVolume = volume => ({ type: UPDATE_VOLUME, volume })
-export const setSong = song => ({ type: SET_SONG, song })
-export const playSong = song => ({ type: PLAY_SONG, song })
+export const mute = () => ({ type: MUTE })
+export const unmute = () => ({ type: UNMUTE })
+export const updateVolume = payload => ({ type: UPDATE_VOLUME, payload })
+export const setSong = payload => ({ type: SET_SONG, payload })
+export const playSong = payload => ({ type: PLAY_SONG, payload })
 
 export const actions = {
     play,
     pause,
-    toggleSound,
+    mute,
+    unmute,
     updateVolume,
     setSong,
     playSong

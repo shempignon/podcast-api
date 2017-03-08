@@ -1,67 +1,55 @@
-import { key, PLAY, PAUSE, TOGGLE_SOUND, UPDATE_VOLUME, SET_SONG } from './actions'
+import { key, PLAY, PAUSE, MUTE, UNMUTE, UPDATE_VOLUME, SET_SONG } from './actions'
 
-let _audio = new Audio()
+let audio = new Audio()
 
 const initialState = {
-    audio: _audio,
     isPlaying: false,
     muted: false,
-    song: '',
-    volume: 0.0
+    volume: 0.0,
+    src: ''
 }
 
 export const selectors = {
     audio: state => state[key].audio
 }
 
-export default function reducer(state = initialState, action){
-    let { audio } = state
-    switch(action.type) {
+export default function reducer(state = initialState, { type, payload }){
+    switch(type) {
         case PLAY:
         {
             audio.play()
 
-            return {
-                ...state,
-                isPlaying: true
-            }
+            return { ...state, isPlaying: !state.isPlaying }
         }
         case PAUSE:
         {
             audio.pause()
 
-            return {
-                ...state,
-                isPlaying: false
-            }
+            return { ...state, isPlaying: !state.isPlaying }
         }
-        case TOGGLE_SOUND:
+        case MUTE:
         {
-            const muted = !audio.muted
-            audio.muted = muted
+            audio.muted = true
 
-            return {
-                ...state,
-                muted
-            }
+            return { ...state, muted: true }
+        }
+        case UNMUTE:
+        {
+            audio.muted = false
+
+            return { ...state, muted: false }
         }
         case UPDATE_VOLUME:
         {
-            audio.volume = action.volume
+            audio.volume = payload
 
-            return {
-                ...state,
-                volume:  action.volume
-            }
+            return { ...state, volume: payload }
         }
         case SET_SONG:
         {
-            audio.src = action.song
+            audio.src = payload
 
-            return {
-                ...state,
-                song:  action.song
-            }
+            return { ...state, src: payload }
         }
         default:
             return state
