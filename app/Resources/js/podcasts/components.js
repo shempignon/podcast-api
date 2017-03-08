@@ -15,11 +15,10 @@ class Podcasts extends Component {
     }
 
     render() {
-        const {podcasts} = this.props
         return (
             <List>
                 <Subheader>Shows</Subheader>
-                {podcasts.map(podcast =>
+                {this.props.podcasts.map(podcast =>
                     <ListItem key={podcast.slug} primaryText={podcast.name} containerElement={
                         <Link to={`/podcast/${podcast.slug}`} />}
                     />)}

@@ -7,7 +7,7 @@ import {
 	refreshPodcast,
     selectPodcast
 } from './actions'
-import { updateTitle } from "../layout/actions";
+import { updateTitle } from '../layout/actions'
 
 const podcastFetchLogic = createLogic({
     type: PODCAST_SELECT,
