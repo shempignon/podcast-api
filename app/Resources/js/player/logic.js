@@ -2,7 +2,7 @@ import { createLogic } from 'redux-logic'
 import {
     PLAY_SONG,
     setSong,
-	play
+	play,
 } from './actions'
 
 const playSongLogic = createLogic({
