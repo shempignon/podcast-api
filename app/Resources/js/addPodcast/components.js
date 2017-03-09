@@ -6,8 +6,9 @@ import FlatButton from 'material-ui/FlatButton'
 import ActionGetApp from 'material-ui/svg-icons/action/get-app'
 
 const AddPodcast = ({url, validationMessage, addPodcast, podcastFieldUpdated}) => (
-    <form onSubmit={addPodcast}>
+    <form onSubmit={addPodcast} style={{ display: 'flex' }}>
         <TextField
+            style={{ paddingLeft: '16px' }}
             hintText="Podcast URL"
             name="url"
             value={url}
@@ -15,7 +16,9 @@ const AddPodcast = ({url, validationMessage, addPodcast, podcastFieldUpdated}) =
             errorText={validationMessage}
         />
         <FlatButton
+            style={{ position: 'absolute', right:'-20px', top: '4px' }}
             type="submit"
+            hoverColor={'transparent'}
             icon={<ActionGetApp />}
         />
     </form>
