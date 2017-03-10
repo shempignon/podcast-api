@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Service\Exception;
 
 class InvalidFeedException extends \InvalidArgumentException

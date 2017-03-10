@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\Timestampable;
@@ -22,7 +23,7 @@ class Episode
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -230,7 +231,7 @@ class Episode
      */
     public function hasBeenDownloaded()
     {
-        return (null !== $this->getLocal());
+        return null !== $this->getLocal();
     }
 
     public function buildLocal()

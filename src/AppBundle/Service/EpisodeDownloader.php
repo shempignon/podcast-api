@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Episode;
@@ -74,7 +75,7 @@ class EpisodeDownloader
         $episode = $episode->prepareLocal();
 
         $this->client->get($episode->getUrl(), [
-            'save_to' => $this->buildFullLocalPath($episode)
+            'save_to' => $this->buildFullLocalPath($episode),
         ]);
 
         $this->saveEpisode($episode);

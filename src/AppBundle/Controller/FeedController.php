@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Feed;
@@ -13,8 +14,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class FeedController
- * @package AppBundle\Controller
+ * Class FeedController.
  *
  * @Route("/feeds", defaults={"_format": "json"})
  */
@@ -54,7 +54,7 @@ class FeedController extends Controller
         ]);
 
         return $this->render('default/form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -91,7 +91,7 @@ class FeedController extends Controller
     }
 
     /**
-     * @param Feed $feed
+     * @param Feed    $feed
      * @param Request $request
      *
      * @return JsonResponse
@@ -103,7 +103,7 @@ class FeedController extends Controller
      */
     public function showAction(Feed $feed, Request $request)
     {
-        $data = $this->get('serializer')->normalize($feed,' json', ['groups' => ['fullFeed']]);
+        $data = $this->get('serializer')->normalize($feed, ' json', ['groups' => ['fullFeed']]);
 
         return $this->json($data);
     }

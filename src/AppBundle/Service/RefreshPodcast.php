@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Episode;
@@ -44,9 +45,9 @@ class RefreshPodcast
     /**
      * RefreshPodcast constructor.
      *
-     * @param EntityManager $entityManager
+     * @param EntityManager        $entityManager
      * @param CssSelectorConverter $converter
-     * @param string $feedDirectory
+     * @param string               $feedDirectory
      */
     public function __construct(EntityManager $entityManager, CssSelectorConverter $converter, $feedDirectory)
     {
@@ -166,7 +167,7 @@ class RefreshPodcast
     }
 
     /**
-     * Update the feed with the XML data
+     * Update the feed with the XML data.
      */
     private function updateFeed()
     {

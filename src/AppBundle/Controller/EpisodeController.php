@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Episode;
@@ -8,8 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class EpisodeController
- * @package AppBundle\Controller
+ * Class EpisodeController.
  *
  * @Route("/episodes", defaults={"_format": "json"})
  */
@@ -30,7 +30,7 @@ class EpisodeController extends Controller
         $episodes = $em->getRepository(Episode::class)
             ->getLatest($downloaded);
 
-        $data = $this->get('serializer')->normalize($episodes,' json', ['groups' => ['fullFeed']]);
+        $data = $this->get('serializer')->normalize($episodes, ' json', ['groups' => ['fullFeed']]);
 
         return $this->json($data);
     }
