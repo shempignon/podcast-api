@@ -1,0 +1,36 @@
+language: php
+
+php:
+  - 7.0
+  - 7.1
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.0
+    - php: 7.1
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install
+
+script:
+  - ./vendor/bin/phpunit
+  - ./vendor/bin/behat
+  # this checks that the source code follows the Symfony Code Syntax rules
+  - ./vendor/bin/php-cs-fixer fix --diff --dry-run -v src/
+  # this checks that the YAML config files contain no syntax errors
+  - ./bin/console lint:yaml app/config
+  - ./bin/console lint:yaml @AppBundle
+  # this checks that the Twig template files contain no syntax errors
+  - ./bin/console lint:twig app/Resources @AppBundle
+  # this checks that the application doesn't use dependencies with known security vulnerabilities
+  - ./bin/console security:check
