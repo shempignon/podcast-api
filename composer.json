@@ -34,7 +34,8 @@
         "behat/behat": "^3.2",
         "behat/symfony2-extension": "^2.1",
         "nelmio/alice": "^3.0@beta",
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^5.7",
+        "friendsofphp/php-cs-fixer": "^2.0"
     },
     "scripts": {
         "post-install-cmd": [
