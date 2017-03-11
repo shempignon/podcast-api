@@ -86,5 +86,4 @@ class DeployProdCommand extends ContainerAwareCommand
 
         $this->output->writeln('Assets have been setup !');
     }
-
 }
