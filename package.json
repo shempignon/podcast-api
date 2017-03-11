@@ -27,7 +27,7 @@
     "rxjs": "^5.1.0"
   },
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "NODE_ENV=production webpack -progress --profile --colors"
+    "start": "webpack-dev-server --env=dev",
+    "build": "webpack --progress --profile --colors --env=prod --define process.env.NODE_ENV='production'"
   }
 }
