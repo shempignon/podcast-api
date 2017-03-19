@@ -13,7 +13,7 @@ const podcastFetchLogic = createLogic({
 
     // use axios injected as httpClient from configureStore logic deps
     process({ httpClient }, dispatch, done) {
-        httpClient.get('/feeds')
+        httpClient.get('/api/feeds')
             .then(resp => resp.data)
             .then(results => {
                 dispatch(sendNotification(`${results.length} podcasts found`))

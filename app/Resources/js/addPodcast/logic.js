@@ -58,7 +58,7 @@ const addPodcastLogic = createLogic({
     // use axios injected as httpClient from configureStore logic deps
     process({ httpClient, getState }, dispatch, done) {
         const fields = addPodcastSel.fields(getState())
-        httpClient.post('/feeds', buildParams(fields))
+        httpClient.post('/api/feeds', buildParams(fields))
             .then(resp => resp.data)
             .then(results => {
                 dispatch(addPodcastSuccess(results))

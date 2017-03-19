@@ -23,7 +23,7 @@ const podcastFetchLogic = createLogic({
     },
 
     process({ httpClient, getState, action }, dispatch, done) {
-        httpClient.get(`/feeds/${action.slug}`)
+        httpClient.get(`/api/feeds/${action.slug}`)
             .then(resp => resp.data)
             .then(results => {
 				if (!results.episodes.length) {
