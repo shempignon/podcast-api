@@ -6,7 +6,7 @@ Feature: Feed
 
   Scenario Outline: Create a feed
     Given data are loaded
-    When the user "POST" <params> to the "/feeds" path
+    When the user "POST" <params> to the "/api/feeds" path
     Then the user should get a <code> response
 
     Examples:
