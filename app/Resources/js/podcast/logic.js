@@ -2,10 +2,12 @@ import { createLogic } from 'redux-logic'
 import {
     PODCAST_SELECT,
     PODCAST_REFRESH,
+    PODCAST_REFRESH_CURRENT,
     fetchRejected,
     fetchFulfilled,
-	refreshPodcast,
-    selectPodcast
+    refreshPodcast,
+    selectPodcast,
+	key
 } from './actions'
 import { updateTitle } from '../layout/actions'
 
@@ -66,7 +68,17 @@ const podcastRefreshLogic = createLogic({
 	}
 })
 
+const podcastRefreshCurrentLogic = createLogic({
+	type: PODCAST_REFRESH_CURRENT,
+
+    process({ httpClient, getState, action }, dispatch, done) {
+        dispatch(refreshPodcast(getState()[key].podcast.slug))
+		done()
+    }
+})
+
 export default [
     podcastFetchLogic,
-	podcastRefreshLogic
+	podcastRefreshLogic,
+    podcastRefreshCurrentLogic
 ]

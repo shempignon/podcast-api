@@ -1,13 +1,15 @@
-import { logic as podcastsLogic } from './podcasts/index'
-import { logic as podcastLogic } from './podcast/index'
-import { logic as addPodcastLogic } from './addPodcast/index'
-import { logic as playerLogic } from './player/index'
-import { logic as layoutLogic } from './layout/index'
+import { logic as podcastsLogic } from './podcasts'
+import { logic as podcastLogic } from './podcast'
+import { logic as addPodcastLogic } from './addPodcast'
+import { logic as playerLogic } from './player'
+import { logic as extraButtonLogic } from './extraButton'
+import { logic as layoutLogic } from './layout'
 
 export default [
     ...podcastsLogic,
     ...podcastLogic,
     ...addPodcastLogic,
     ...playerLogic,
+    ...extraButtonLogic,
     ...layoutLogic,
 ]

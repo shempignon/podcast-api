@@ -9,6 +9,8 @@ import { toggleDrawer, toggleSnackbar } from './actions'
 import { Podcasts } from '../podcasts'
 import { AddPodcast } from '../addPodcast'
 import { Player } from '../player'
+import { ExtraButton } from '../extraButton'
+import { extraButtonAction } from '../extraButton/actions'
 
 const LeftDrawer = () => (
     <div>
@@ -17,11 +19,14 @@ const LeftDrawer = () => (
     </div>
 )
 
-const Layout = ({title, notification, openDrawer, openSnackbar, toggleDrawer, toggleSnackbar, children}) => (
+const Layout = ({title, toggleDrawer, openDrawer, openSnackbar, notification, toggleSnackbar, location, extraButtonAction, children }) => (
     <MuiThemeProvider>
         <Paper zDepth={0}>
             <AppBar title={title}
                     onLeftIconButtonTouchTap={toggleDrawer}
+                    iconElementRight={<ExtraButton
+                        location={location}
+                        action={extraButtonAction} />}
             />
             <Drawer children={<LeftDrawer />}
                     docked={false}
@@ -46,5 +51,5 @@ export default connect(
 		openSnackbar: state.layout.openSnackbar,
 		openDrawer: state.layout.openDrawer,
 	}),
-	{ toggleDrawer, toggleSnackbar }
+	{ toggleDrawer, toggleSnackbar, extraButtonAction }
 )(Layout)
