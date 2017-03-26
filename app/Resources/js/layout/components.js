@@ -10,7 +10,7 @@ import { Podcasts } from '../podcasts'
 import { AddPodcast } from '../addPodcast'
 import { Player } from '../player'
 
-const Menu = () => (
+const LeftDrawer = () => (
     <div>
         <AddPodcast />
         <Podcasts />
@@ -23,7 +23,7 @@ const Layout = ({title, notification, openDrawer, openSnackbar, toggleDrawer, to
             <AppBar title={title}
                     onLeftIconButtonTouchTap={toggleDrawer}
             />
-            <Drawer children={<Menu />}
+            <Drawer children={<LeftDrawer />}
                     docked={false}
                     open={openDrawer}
                     onRequestChange={toggleDrawer}
