@@ -57,7 +57,7 @@ const podcastRefreshLogic = createLogic({
 	},
 
 	process({ httpClient, getState, action }, dispatch, done) {
-		httpClient.get(`/feeds/${action.slug}/refresh`)
+		httpClient.get(`/api/feeds/${action.slug}/refresh`)
 			.then(resp => resp.data)
 			.then(results => dispatch(selectPodcast(action.slug)))
 			.catch(err => {
