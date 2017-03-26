@@ -178,7 +178,7 @@ class RefreshPodcast
         }
 
         $this->manager->persist($this->feed);
-        // We are forced to lush to generate the slug
+        // We are forced to flush to generate the slug
         $this->manager->flush([$this->feed]);
 
         @mkdir($this->feedDirectory.$this->feed->getSlug());
