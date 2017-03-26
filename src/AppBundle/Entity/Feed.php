@@ -61,6 +61,7 @@ class Feed
 
     /**
      * @ORM\OneToMany(targetEntity="Episode", mappedBy="feed", cascade={"all"})
+     * @ORM\OrderBy({"broadcastedOn" = "DESC"})
      *
      * @Groups({"fullFeed"})
      *
