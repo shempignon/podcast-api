@@ -20,6 +20,7 @@ export default class ExtraButton extends Component {
         const { pathname } = location
         switch (identifyPath(pathname)) {
             case 'podcast':
+            case 'episodes':
                 return (<FlatButton
                     onTouchTap={e => action(pathname)}
                     hoverColor="transparent"
