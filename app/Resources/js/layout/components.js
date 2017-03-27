@@ -21,7 +21,7 @@ const LeftDrawer = () => (
 
 const Layout = ({title, toggleDrawer, openDrawer, openSnackbar, notification, toggleSnackbar, location, extraButtonAction, children }) => (
     <MuiThemeProvider>
-        <Paper zDepth={0}>
+        <Paper zDepth={0} style={{paddingBottom: 100}}>
             <AppBar title={title}
                     onLeftIconButtonTouchTap={toggleDrawer}
                     iconElementRight={<ExtraButton
