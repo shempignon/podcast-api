@@ -18,6 +18,7 @@ class EpisodeRepository extends EntityRepository
         return $this->createQueryBuilder('e')
             ->orderBy('e.broadcastedOn')
             ->where("e.local $local")
+            ->orderBy('e.broadcastedOn', 'desc')
             ->setFirstResult($offset)
             ->setMaxResults(20)
             ->getQuery()
