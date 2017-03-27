@@ -91,6 +91,28 @@ class FeedController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     *
+     * @Route("/refresh", name="feeds_full_refresh")
+     * @Method("GET")
+     */
+    public function fullRefreshAction()
+    {
+        $newEpisodes = 0;
+        $refresher = $this->get('app.podcast.refresher');
+        $feeds = $this->getDoctrine()
+            ->getRepository(Feed::class)
+            ->findAll();
+
+        foreach ($feeds as $feed) {
+            $refresher->setFeed($feed);
+            $newEpisodes += count($refresher->execute());
+        }
+
+        return new JsonResponse($newEpisodes);
+    }
+
+    /**
      * @param Feed    $feed
      * @param Request $request
      *
