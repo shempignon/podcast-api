@@ -10,12 +10,12 @@ export const SEND_NOTIFICATION = 'SEND_NOTIFICATION'
 export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR'
 
 export const actionTypes = {
-    UPDATE_TITLE,
-	TOGGLE_DRAWER,
-    CLOSE_DRAWER,
-    UPDATE_NOTIFICATION,
-    SEND_NOTIFICATION,
-    TOGGLE_SNACKBAR
+  UPDATE_TITLE,
+  TOGGLE_DRAWER,
+  CLOSE_DRAWER,
+  UPDATE_NOTIFICATION,
+  SEND_NOTIFICATION,
+  TOGGLE_SNACKBAR
 }
 
 // Action creators
@@ -27,10 +27,10 @@ export const sendNotification = notification => ({ type: SEND_NOTIFICATION, noti
 export const toggleSnackbar = () => ({ type: TOGGLE_SNACKBAR })
 
 export const actions = {
-    updateTitle,
-    toggleDrawer,
-    closeDrawer,
-    setNotification,
-    sendNotification,
-    toggleSnackbar
+  updateTitle,
+  toggleDrawer,
+  closeDrawer,
+  setNotification,
+  sendNotification,
+  toggleSnackbar
 }

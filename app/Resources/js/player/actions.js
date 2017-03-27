@@ -15,15 +15,15 @@ export const SET_SONG = 'SET_SONG'
 export const PLAY_SONG = 'PLAY_SONG'
 
 export const actionTypes = {
-    PLAY,
-    PAUSE,
-    MUTE,
-    UNMUTE,
-    UPDATE_TIME,
-    UPDATE_VOLUME,
-    SET_TIME,
-    SET_SONG,
-    PLAY_SONG
+  PLAY,
+  PAUSE,
+  MUTE,
+  UNMUTE,
+  UPDATE_TIME,
+  UPDATE_VOLUME,
+  SET_TIME,
+  SET_SONG,
+  PLAY_SONG
 }
 
 // Action creators
@@ -32,18 +32,18 @@ export const pause = () => ({ type: PAUSE })
 export const mute = () => ({ type: MUTE })
 export const unmute = () => ({ type: UNMUTE })
 export const updateVolume = payload => ({ type: UPDATE_VOLUME, payload })
-export const updateTime = event => ({ type: UPDATE_TIME, payload: extractTimesFromAudio(event)})
-export const setTime = payload => ({ type: UPDATE_TIME, payload: extractTimesFromAudio(event)})
+export const updateTime = event => ({ type: UPDATE_TIME, payload: extractTimesFromAudio(event) })
+export const setTime = event => ({ type: UPDATE_TIME, payload: extractTimesFromAudio(event) })
 export const setSong = payload => ({ type: SET_SONG, payload })
 export const playSong = payload => ({ type: PLAY_SONG, payload })
 
 export const actions = {
-    play,
-    pause,
-    mute,
-    unmute,
-    updateVolume,
-    setTime,
-    setSong,
-    playSong
+  play,
+  pause,
+  mute,
+  unmute,
+  updateVolume,
+  setTime,
+  setSong,
+  playSong
 }

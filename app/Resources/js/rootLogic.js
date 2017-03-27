@@ -7,11 +7,11 @@ import { logic as extraButtonLogic } from './extraButton'
 import { logic as layoutLogic } from './layout'
 
 export default [
-    ...podcastsLogic,
-    ...podcastLogic,
-    ...latestEpisodesLogic,
-    ...addPodcastLogic,
-    ...playerLogic,
-    ...extraButtonLogic,
-    ...layoutLogic,
+  ...podcastsLogic,
+  ...podcastLogic,
+  ...latestEpisodesLogic,
+  ...addPodcastLogic,
+  ...playerLogic,
+  ...extraButtonLogic,
+  ...layoutLogic
 ]

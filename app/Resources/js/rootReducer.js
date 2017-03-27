@@ -8,11 +8,11 @@ import { key as playerKey, reducer as playerReducer } from './player'
 import { key as layoutKey, reducer as layoutReducer } from './layout'
 
 export default combineReducers({
-    [podcastsKey]: podcastsReducer,
-    [podcastKey]: podcastReducer,
-    [latestEpisodesKey]: latestEpisodesReducer,
-    [addPodcastKey]: addPodcastReducer,
-    [playerKey]: playerReducer,
-    [layoutKey]: layoutReducer,
-    routing: routerReducer
+  [podcastsKey]: podcastsReducer,
+  [podcastKey]: podcastReducer,
+  [latestEpisodesKey]: latestEpisodesReducer,
+  [addPodcastKey]: addPodcastReducer,
+  [playerKey]: playerReducer,
+  [layoutKey]: layoutReducer,
+  routing: routerReducer
 })
