@@ -9,7 +9,7 @@ import {
   selectPodcast,
   key
 } from './actions'
-import { updateTitle } from '../layout/actions'
+import { sendNotification, updateTitle } from '../layout/actions'
 
 const podcastFetchLogic = createLogic({
   type: PODCAST_SELECT,
@@ -59,7 +59,10 @@ const podcastRefreshLogic = createLogic({
   process ({ httpClient, getState, action }, dispatch, done) {
     httpClient.get(`/api/feeds/${action.slug}/refresh`)
       .then(resp => resp.data)
-      .then(results => dispatch(selectPodcast(action.slug)))
+      .then(results => {
+        dispatch(sendNotification(`${results} new episodes found`))
+        dispatch(selectPodcast(action.slug))
+      })
       .catch(err => {
         console.error(err)
         dispatch(fetchRejected(err))
