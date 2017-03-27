@@ -24,7 +24,7 @@ class EpisodeController extends Controller
      * @Route("/latest/{downloaded}", name="feeds_latest")
      * @Method("GET")
      */
-    public function latestAction($downloaded = false, Request $request)
+    public function latestAction(Request $request, $downloaded = false)
     {
         $em = $this->getDoctrine();
         $offset = $request->query->get('offset', 0);
