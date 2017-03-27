@@ -32,7 +32,7 @@ class Feed
     /**
      * @ORM\Column(type="string", length=100, unique=true)
      *
-     * @Groups({"smallFeed", "fullFeed"})
+     * @Groups({"smallFeed", "fullFeed", "episodes"})
      *
      * @var string
      */
@@ -41,7 +41,7 @@ class Feed
     /**
      * @ORM\Column(nullable=true)
      * @Assert\Url
-     * @Groups({"smallFeed", "fullFeed"})
+     * @Groups({"smallFeed", "fullFeed", "episodes"})
      * @var string
      */
     private $image;
@@ -51,7 +51,7 @@ class Feed
      *
      * @Gedmo\Slug(fields={"name"})
      *
-     * @Groups({"smallFeed", "fullFeed"})
+     * @Groups({"smallFeed", "fullFeed", "episodes"})
      *
      * @var string
      */
@@ -177,7 +177,7 @@ class Feed
      * Returns updatedAt.
      *
      * @return \DateTime
-     * @Groups({"smallFeed", "fullFeed"})
+     * @Groups({"smallFeed", "fullFeed", "episodes"})
      */
     public function getUpdatedAt()
     {

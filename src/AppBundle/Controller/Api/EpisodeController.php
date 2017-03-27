@@ -31,7 +31,7 @@ class EpisodeController extends Controller
         $episodes = $em->getRepository(Episode::class)
             ->getLatest($offset, $downloaded);
 
-        $data = $this->get('serializer')->normalize($episodes, ' json', ['groups' => ['fullFeed']]);
+        $data = $this->get('serializer')->normalize($episodes, ' json', ['groups' => ['episodes']]);
 
         return $this->json($data);
     }

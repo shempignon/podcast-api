@@ -41,7 +41,7 @@ class Episode
      *
      * @Assert\NotBlank
      *
-     * @Groups({"fullFeed"})
+     * @Groups({"fullFeed", "episodes"})
      *
      * @var string
      */
@@ -61,7 +61,7 @@ class Episode
      *
      * @Assert\DateTime
      *
-     * @Groups({"fullFeed"})
+     * @Groups({"fullFeed", "episodes"})
      *
      * @var \DateTime
      */
@@ -73,7 +73,7 @@ class Episode
      * @Assert\Url
      * @Assert\NotBlank
      *
-     * @Groups({"fullFeed"})
+     * @Groups({"fullFeed", "episodes"})
      *
      * @var string
      */
@@ -90,6 +90,7 @@ class Episode
      * @ORM\ManyToOne(targetEntity="Feed", inversedBy="episodes")
      * @ORM\JoinColumn(name="feed_id", referencedColumnName="id")
      *
+     * @Groups({"episodes"})
      * @var Feed
      */
     private $feed;
