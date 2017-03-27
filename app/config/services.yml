@@ -14,6 +14,7 @@ services:
     app.podcast.refresher:
         class: AppBundle\Service\RefreshPodcast
         arguments:
+            - "@property_accessor"
             - "@doctrine.orm.entity_manager"
             - "@css.converter"
             - "%feeds_dir%"

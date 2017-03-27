@@ -9,6 +9,8 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\CssSelector\CssSelectorConverter;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class RefreshPodcast
 {
@@ -45,12 +47,18 @@ class RefreshPodcast
     /**
      * RefreshPodcast constructor.
      *
-     * @param EntityManager        $entityManager
+     * @param PropertyAccessor $accessor
+     * @param EntityManager $entityManager
      * @param CssSelectorConverter $converter
-     * @param string               $feedDirectory
+     * @param string $feedDirectory
      */
-    public function __construct(EntityManager $entityManager, CssSelectorConverter $converter, $feedDirectory)
-    {
+    public function __construct(
+        PropertyAccessor $accessor,
+        EntityManager $entityManager,
+        CssSelectorConverter $converter,
+        $feedDirectory
+    ) {
+        $this->accessor = $accessor;
         $this->manager = $entityManager;
         $this->converter = $converter;
         $this->feedDirectory = $feedDirectory;
@@ -78,7 +86,7 @@ class RefreshPodcast
 
         $this->document = $this->getXmlFromFeed();
 
-        if (null === $this->feed->getName()) {
+        if (null === $this->feed->getName() || null === $this->feed->getImage()) {
             $this->updateFeed();
         }
 
@@ -172,8 +180,12 @@ class RefreshPodcast
     private function updateFeed()
     {
         foreach ($this->getChannel() as $channel) {
-            if (property_exists($channel, 'title')) {
-                $this->feed->setName((string) $channel->title);
+            if ($this->accessor->isReadable($channel, 'title')) {
+                $this->feed->setName((string) $this->accessor->getValue($channel, 'title'));
+            }
+
+            if ($this->accessor->isReadable($channel, 'image.url')) {
+                $this->feed->setImage((string) $this->accessor->getValue($channel, 'image.url'));
             }
         }
 
@@ -181,7 +193,7 @@ class RefreshPodcast
         // We are forced to flush to generate the slug
         $this->manager->flush([$this->feed]);
 
-        @mkdir($this->feedDirectory.$this->feed->getSlug());
+        (new  Filesystem())->mkdir($this->feedDirectory.$this->feed->getSlug());
     }
 
     /**
