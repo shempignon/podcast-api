@@ -30,35 +30,27 @@ const style = {
     }
 }
 
-class Player extends Component {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        const { isPlaying, play, pause, muted, mute, unmute, volume, updateVolume, completed, setTime } = this.props
-
-        return (
-            <Paper zDepth={4} style={style.player}>
-                <Checkbox
-                    checked={isPlaying}
-                    style={style.input}
-                    checkedIcon={<AvPause />}
-                    uncheckedIcon={<AvPlayArrow />}
-                    onCheck={(e, playing) => ((playing) ? play() : pause())}
-                />
-                <Checkbox
-                    checked={muted}
-                    style={style.input}
-                    checkedIcon={<AvVolumeOff />}
-                    uncheckedIcon={<AvVolumeUp />}
-                    onCheck={(e, muted) => ((muted) ? mute() : unmute())}
-                />
-                <Slider style={{ ...style.slider, width: '80%'}} sliderStyle={style.input} axis="x" value={completed} max={100} onChange={(e, newTime) => setTime(newTime)}/>
-                <Slider style={{ ...style.slider, width: '10%'}} sliderStyle={style.input} axis="x" value={volume} onChange={(e, newVolume) => updateVolume(newVolume)} />
-            </Paper>
-        )
-    }
+function Player({isPlaying, play, pause, muted, mute, unmute, volume, updateVolume, completed, setTime}) {
+    return (
+        <Paper zDepth={4} style={style.player}>
+            <Checkbox
+                checked={isPlaying}
+                style={style.input}
+                checkedIcon={<AvPause />}
+                uncheckedIcon={<AvPlayArrow />}
+                onCheck={(e, playing) => ((playing) ? play() : pause())}
+            />
+            <Checkbox
+                checked={muted}
+                style={style.input}
+                checkedIcon={<AvVolumeOff />}
+                uncheckedIcon={<AvVolumeUp />}
+                onCheck={(e, muted) => ((muted) ? mute() : unmute())}
+            />
+            <Slider style={{ ...style.slider, width: '80%'}} sliderStyle={style.input} axis="x" value={completed} max={100} onChange={(e, newTime) => setTime(newTime)}/>
+            <Slider style={{ ...style.slider, width: '10%'}} sliderStyle={style.input} axis="x" value={volume} onChange={(e, newVolume) => updateVolume(newVolume)} />
+        </Paper>
+    )
 }
 
 export default connect(

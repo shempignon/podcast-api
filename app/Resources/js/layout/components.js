@@ -12,37 +12,41 @@ import { Player } from '../player'
 import { ExtraButton } from '../extraButton'
 import { extraButtonAction } from '../extraButton/actions'
 
-const LeftDrawer = () => (
-    <div>
-        <AddPodcast />
-        <Podcasts />
-    </div>
-)
+function LeftDrawer() {
+   return (
+       <div>
+           <AddPodcast />
+           <Podcasts />
+       </div>
+   )
+}
 
-const Layout = ({title, toggleDrawer, openDrawer, openSnackbar, notification, toggleSnackbar, location, extraButtonAction, children }) => (
-    <MuiThemeProvider>
-        <Paper zDepth={0} style={{paddingBottom: 100}}>
-            <AppBar title={title}
-                    onLeftIconButtonTouchTap={toggleDrawer}
-                    iconElementRight={<ExtraButton
-                        location={location}
-                        action={extraButtonAction} />}
-            />
-            <Drawer children={<LeftDrawer />}
-                    docked={false}
-                    open={openDrawer}
-                    onRequestChange={toggleDrawer}
-            />
-            <Snackbar open={openSnackbar}
-                      message={notification}
-                      autoHideDuration={1500}
-                      onRequestClose={toggleSnackbar}
-            />
-            {children}
-            <Player />
-        </Paper>
-    </MuiThemeProvider>
-)
+function Layout({title, toggleDrawer, openDrawer, openSnackbar, notification, toggleSnackbar, location, extraButtonAction, children }) {
+    return (
+        <MuiThemeProvider>
+            <Paper zDepth={0} style={{paddingBottom: 100}}>
+                <AppBar title={title}
+                        onLeftIconButtonTouchTap={toggleDrawer}
+                        iconElementRight={<ExtraButton
+                            location={location}
+                            action={extraButtonAction} />}
+                />
+                <Drawer children={<LeftDrawer />}
+                        docked={false}
+                        open={openDrawer}
+                        onRequestChange={toggleDrawer}
+                />
+                <Snackbar open={openSnackbar}
+                          message={notification}
+                          autoHideDuration={1500}
+                          onRequestClose={toggleSnackbar}
+                />
+                {children}
+                <Player />
+            </Paper>
+        </MuiThemeProvider>
+    )
+}
 
 export default connect(
     state => ({
