@@ -39,6 +39,14 @@ class Feed
     private $name;
 
     /**
+     * @ORM\Column(nullable=true)
+     * @Assert\Url
+     * @Groups({"smallFeed", "fullFeed"})
+     * @var string
+     */
+    private $image;
+
+    /**
      * @ORM\Column(type="string", length=255, unique=true)
      *
      * @Gedmo\Slug(fields={"name"})
@@ -174,5 +182,24 @@ class Feed
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     * @return Feed
+     */
+    public function setImage(string $image)
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }
