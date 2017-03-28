@@ -125,7 +125,7 @@ class FeedController extends Controller
      */
     public function showAction(Feed $feed, Request $request)
     {
-        $data = $this->get('serializer')->normalize($feed, ' json', ['groups' => ['fullFeed']]);
+        $data = $this->get('serializer')->normalize($feed->getEpisodes(), ' json', ['groups' => ['episodes']]);
 
         return $this->json($data);
     }
