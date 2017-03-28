@@ -27,12 +27,13 @@ const podcastFetchLogic = createLogic({
   process ({ httpClient, getState, action }, dispatch, done) {
     httpClient.get(`/api/feeds/${action.slug}`)
       .then(resp => resp.data)
-      .then(results => {
-        if (!results.episodes.length) {
+      .then(episodes => {
+        if (!episodes.length) {
           dispatch(refreshPodcast(action.slug))
         } else {
-          dispatch(fetchFulfilled(results))
-          dispatch(updateTitle(results.name))
+          const { name, slug, updatedAt, feed } = episodes[0]
+          dispatch(fetchFulfilled({ name, slug, updatedAt, episodes }))
+          dispatch(updateTitle(feed.name))
         }
       })
       .catch(err => {

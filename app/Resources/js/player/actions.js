@@ -33,7 +33,7 @@ export const mute = () => ({ type: MUTE })
 export const unmute = () => ({ type: UNMUTE })
 export const updateVolume = payload => ({ type: UPDATE_VOLUME, payload })
 export const updateTime = event => ({ type: UPDATE_TIME, payload: extractTimesFromAudio(event) })
-export const setTime = event => ({ type: UPDATE_TIME, payload: extractTimesFromAudio(event) })
+export const setTime = payload => ({ type: UPDATE_TIME, payload })
 export const setSong = payload => ({ type: SET_SONG, payload })
 export const playSong = payload => ({ type: PLAY_SONG, payload })
 

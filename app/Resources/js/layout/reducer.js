@@ -14,17 +14,17 @@ export const selectors = {
   notification: state => state[key].notification
 }
 
-export default function reducer (state = initialState, action) {
-  switch (action.type) {
+export default function reducer (state = initialState, { type, payload }) {
+  switch (type) {
     case UPDATE_TITLE:
       return {
         ...state,
-        title: action.title
+        title: payload
       }
     case UPDATE_NOTIFICATION:
       return {
         ...state,
-        notification: action.notification
+        notification: payload
       }
     case TOGGLE_DRAWER:
       return {

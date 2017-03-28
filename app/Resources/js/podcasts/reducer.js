@@ -5,8 +5,8 @@ const initialState = {
   status: ''
 }
 
-export default function reducer (state = initialState, action) {
-  switch (action.type) {
+export default function reducer (state = initialState, { type, payload }) {
+  switch (type) {
     case PODCASTS_FETCH:
       return {
         ...state,
@@ -16,13 +16,13 @@ export default function reducer (state = initialState, action) {
     case PODCASTS_FETCH_FULFILLED:
       return {
         ...state,
-        list: action.payload,
+        list: payload,
         status: 'Loaded'
       }
     case PODCASTS_FETCH_REJECTED:
       return {
         ...state,
-        status: `errored: ${action.payload}`
+        status: `errored: ${payload}`
       }
     default:
       return state

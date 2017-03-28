@@ -16,11 +16,11 @@ export const selectors = {
   message: state => state[key].message
 }
 
-export default function reducer (state = initialState, action) {
-  switch (action.type) {
+export default function reducer (state = initialState, { type, payload }) {
+  switch (type) {
     case PODCAST_FIELD_UPDATED:
       {
-        const fieldUpdate = action.payload
+        const fieldUpdate = payload
         const updatedFields = {
           ...state.fields,
           [fieldUpdate.name]: fieldUpdate.value
@@ -36,7 +36,7 @@ export default function reducer (state = initialState, action) {
       }
     case PODCAST_FIELD_INVALID:
       {
-        const { errors, fieldUpdate } = action.payload
+        const { errors, fieldUpdate } = payload
         const updatedFields = {
           ...state.fields,
           [fieldUpdate.name]: fieldUpdate.value
@@ -59,14 +59,10 @@ export default function reducer (state = initialState, action) {
         message: 'Podcast added successfully'
       }
     case ADD_PODCAST_FAILTURE:
-      {
-        const err = action.payload
-
-        return {
-          ...state,
-          errors: state.errors.concat(err.message),
-          message: ''
-        }
+      return {
+        ...state,
+        errors: state.errors.concat(payload.message),
+        message: ''
       }
     default:
       return state

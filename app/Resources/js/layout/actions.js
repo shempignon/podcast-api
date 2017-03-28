@@ -19,11 +19,11 @@ export const actionTypes = {
 }
 
 // Action creators
-export const updateTitle = title => ({ type: UPDATE_TITLE, title })
+export const updateTitle = payload => ({ type: UPDATE_TITLE, payload })
 export const toggleDrawer = () => ({ type: TOGGLE_DRAWER })
 export const closeDrawer = () => ({ type: CLOSE_DRAWER })
-export const setNotification = notification => ({ type: UPDATE_NOTIFICATION, notification })
-export const sendNotification = notification => ({ type: SEND_NOTIFICATION, notification })
+export const setNotification = payload => ({ type: UPDATE_NOTIFICATION, payload })
+export const sendNotification = payload => ({ type: SEND_NOTIFICATION, payload })
 export const toggleSnackbar = () => ({ type: TOGGLE_SNACKBAR })
 
 export const actions = {
