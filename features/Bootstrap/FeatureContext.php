@@ -11,8 +11,6 @@ use Exception;
 use Nelmio\Alice\Loader\NativeLoader;
 use stdClass;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -107,21 +105,12 @@ class FeatureContext implements Context
     public function dataAreLoaded()
     {
         $loader = new NativeLoader();
+        $fixturesPath = realpath(__DIR__ . '/../../app/fixtures/list.yml');
 
-        foreach ($this->getFixtures() as $file) {
-            /** @var SplFileInfo $file*/
-            foreach($loader->loadFile($file->getRealPath())->getObjects() as $object) {
-                $this->manager->persist($object);
-            }
+        foreach($loader->loadFile($fixturesPath)->getObjects() as $object) {
+            $this->manager->persist($object);
         }
 
         $this->manager->flush();
-    }
-
-    private function getFixtures()
-    {
-        return (new Finder())
-            ->files()
-            ->in(__DIR__.'/../../app/fixtures');
     }
 }

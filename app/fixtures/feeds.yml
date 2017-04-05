@@ -1,4 +1,4 @@
 AppBundle\Entity\Feed:
     feed1:
-        name: 'Laravel Podcast'
+        name: 'The Laravel Podcast'
         url: 'http://simplecast.com/podcasts/351/rss'
