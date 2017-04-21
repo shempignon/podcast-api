@@ -202,4 +202,15 @@ class Feed
 
         return $this;
     }
+
+    /**
+     * @return \SimpleXMLElement
+     */
+    public function getXml()
+    {
+        $document = new \SimpleXMLElement($this->url, 0, true);
+        $document->registerXPathNamespace('xhtml', 'http://www.w3.org/1999/xhtml');
+
+        return $document;
+    }
 }

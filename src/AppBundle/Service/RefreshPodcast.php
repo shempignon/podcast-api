@@ -30,11 +30,6 @@ class RefreshPodcast
     private $converter;
 
     /**
-     * @var \SimpleXMLElement
-     */
-    private $document;
-
-    /**
      * @var ArrayCollection
      */
     private $episodes;
@@ -52,12 +47,8 @@ class RefreshPodcast
      * @param CssSelectorConverter $converter
      * @param string $feedDirectory
      */
-    public function __construct(
-        PropertyAccessor $accessor,
-        EntityManager $entityManager,
-        CssSelectorConverter $converter,
-        $feedDirectory
-    ) {
+    public function __construct($accessor, $entityManager, $converter, $feedDirectory)
+    {
         $this->accessor = $accessor;
         $this->manager = $entityManager;
         $this->converter = $converter;
@@ -70,7 +61,7 @@ class RefreshPodcast
      *
      * @var Feed
      */
-    public function setFeed(Feed $feed)
+    public function setFeed($feed)
     {
         $this->feed = $feed;
     }
@@ -83,8 +74,6 @@ class RefreshPodcast
         if (null === $this->feed) {
             throw new InvalidFeedException();
         }
-
-        $this->document = $this->getXmlFromFeed();
 
         if (null === $this->feed->getName() || null === $this->feed->getImage()) {
             $this->updateFeed();
@@ -103,17 +92,6 @@ class RefreshPodcast
     private static function getEpisodeDate($episode)
     {
         return DateTime::createFromFormat(DateTime::RSS, $episode->pubDate);
-    }
-
-    /**
-     * @return \SimpleXMLElement
-     */
-    private function getXmlFromFeed()
-    {
-        $document = new \SimpleXMLElement($this->feed->getUrl(), 0, true);
-        $document->registerXPathNamespace('xhtml', 'http://www.w3.org/1999/xhtml');
-
-        return $document;
     }
 
     /**
@@ -203,6 +181,10 @@ class RefreshPodcast
      */
     private function findInXML($cssExpr)
     {
-        return $this->document->xpath($this->converter->toXPath($cssExpr));
+        $expression = $this->converter->toXPath($cssExpr);
+
+        return $this->feed
+            ->getXml()
+            ->xpath($expression);
     }
 }
