@@ -2,3 +2,7 @@ AppBundle\Entity\Feed:
     feed1:
         name: 'The Laravel Podcast'
         url: 'http://simplecast.com/podcasts/351/rss'
+
+    feed2:
+        name: 'The Symfony Podcast'
+        url: '<url()>'
