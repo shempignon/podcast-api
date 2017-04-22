@@ -29,7 +29,7 @@ class RefreshPodcastTest extends TestCase
         $converter = $this->createMock(CssSelectorConverter::class);
         $converter->method('toXPath')->will($this->onConsecutiveCalls('descendant-or-self::rss/channel', 'descendant-or-self::rss/channel/item'));
 
-        $this->refresher = new RefreshPodcast($accessor, $manager, $converter, sys_get_temp_dir());;
+        $this->refresher = new RefreshPodcast($accessor, $manager, $converter, realpath(__DIR__.'/../../../web/feeds/'));;
     }
 
     /**
