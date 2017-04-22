@@ -34,7 +34,7 @@ class EpisodeDownloader
      */
     private $downloadedEpisodes;
 
-    public function __construct(Client $client, EntityManager $em, $downloadDirectory)
+    public function __construct($client, $em, $downloadDirectory)
     {
         $this->client = $client;
         $this->em = $em;
