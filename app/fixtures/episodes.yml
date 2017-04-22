@@ -1,0 +1,10 @@
+AppBundle\Entity\Episode:
+    episode (template):
+        guid (unique): '<uuid()>'
+        name: '<name()>'
+        slug (unique): '<slug()>'
+        url: '<url()>'
+        broadcastedOn: '<dateTime()>'
+
+    episode{1..20} (extends episode):
+        feed: '@feed1'
