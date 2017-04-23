@@ -25,7 +25,7 @@ install:
   - composer install
 
 script:
-  - ./vendor/bin/phpunit -c ./phpunit.xml.travis
+  - ./vendor/bin/phpunit -c ./phpunit.xml.travis --coverage-clover=coverage.xml
   - ./vendor/bin/behat
   # this checks that the source code follows the Symfony Code Syntax rules
   - ./vendor/bin/php-cs-fixer fix --diff --dry-run -v src/
@@ -34,3 +34,7 @@ script:
   - ./bin/console lint:yaml @AppBundle
   # this checks that the Twig template files contain no syntax errors
   - ./bin/console lint:twig app/Resources @AppBundle
+
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
