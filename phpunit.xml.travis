@@ -28,6 +28,11 @@
                 <directory>src/*/Bundle/*Bundle/Resources</directory>
                 <directory>src/*Bundle/Command/DeployProdCommand.php</directory>
                 <directory>src/*Bundle/Entity</directory>
+                 <!--Cannot run on travis-->
+                <file>src/AppBundle/Command/DeployProdCommand.php</file>
+                <!--Routes are tested with Behat-->
+                <directory>src/AppBundle/Controller</directory>
+                <directory>src/AppBundle/Controller/Api</directory>
             </exclude>
         </whitelist>
     </filter>
